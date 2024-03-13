@@ -1,4 +1,4 @@
-import DashBoard from '../components/DashBoard/DashBoard';
+import DashBoard from '../components/categories/Categories';
 
 const HomePage = (): JSX.Element => <DashBoard />;
 
