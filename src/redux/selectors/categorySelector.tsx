@@ -6,3 +6,5 @@ import { RootState } from '../store/store';
 const selectCategoryState = (state: RootState): CategoryState => state.category;
 
 export const selectAllCategories = createSelector(selectCategoryState, (categoryState) => categoryState.categories);
+
+export const isCategoryLoading = createSelector(selectCategoryState, (categoryState) => categoryState.loading);
