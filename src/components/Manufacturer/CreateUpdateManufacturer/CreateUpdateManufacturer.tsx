@@ -6,7 +6,7 @@ import { Field, Form, Formik } from 'formik';
 import { createManufacturer } from '../../../redux/slices/manufacturerSlice';
 import { AppDispatch } from '../../../redux/store/store';
 import { CreateManufacturerType } from '../../../types/manufacturerTypes';
-import Modal from '../../shared/Modal/Modal';
+import Modal from '../../_shared/Modal/Modal';
 
 import styles from './styles.module.scss';
 

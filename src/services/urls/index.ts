@@ -9,3 +9,9 @@ export const manufacturerURLS = {
   createManufacturer: '/manufacturer',
   updateManufacturer: (id: string) => `/manufacturer/${id}`,
 };
+
+export const storeURLS = {
+  getAllStores: '/stores',
+  createStore: '/store',
+  updateStore: (id: string) => `/store/${id}`,
+};

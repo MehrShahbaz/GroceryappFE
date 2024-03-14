@@ -6,7 +6,7 @@ import { Field, Form, Formik } from 'formik';
 import { createCategory } from '../../../redux/slices/categorySlice';
 import { AppDispatch } from '../../../redux/store/store';
 import { CreateCategoryType } from '../../../types/categoryTypes';
-import Modal from '../../shared/Modal/Modal';
+import Modal from '../../_shared/Modal/Modal';
 
 import styles from './CreateUpdateCategoey.module.scss';
 

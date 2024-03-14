@@ -10,4 +10,4 @@ export const selectAllManufacturers = createSelector(
   (categoryState) => categoryState.manufacturers
 );
 
-export const isCategoryLoading = createSelector(selectCategoryState, (categoryState) => categoryState.loading);
+export const isManufacturerLoading = createSelector(selectCategoryState, (categoryState) => categoryState.loading);

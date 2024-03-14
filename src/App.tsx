@@ -1,4 +1,4 @@
-import Loader from './components/shared/Loader/Loader';
+import Loader from './components/_shared/Loader/Loader';
 import HomePage from './screens/Home';
 
 import './App.scss';
