@@ -19,7 +19,7 @@ const Loader = (): JSX.Element => {
     );
   }
 
-  return <div />;
+  return <div id="Loader" />;
 };
 
 export default Loader;
