@@ -1,5 +1,15 @@
-import DashBoard from '../components/DashBoard/DashBoard';
+import Category from '../components/Category/Category';
+import Manufacturer from '../components/Manufacturer/Manufacturer';
+import StoreComponent from '../components/Store/Store';
 
-const HomePage = (): JSX.Element => <DashBoard />;
+import styles from './Home.module.scss';
+
+const HomePage = (): JSX.Element => (
+  <div className={styles.container} id="Home">
+    <Category />
+    <Manufacturer />
+    <StoreComponent />
+  </div>
+);
 
 export default HomePage;

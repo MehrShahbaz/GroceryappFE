@@ -179,6 +179,7 @@ module.exports = {
           {
             selector: 'default',
             format: ['camelCase'],
+            trailingUnderscore: 'allow',
           },
           {
             selector: 'variable',
@@ -218,6 +219,8 @@ module.exports = {
           {
             selector: 'property',
             format: ['camelCase', 'snake_case', 'PascalCase'],
+            leadingUnderscore: 'allow',
+            trailingUnderscore: 'allow',
           },
         ],
         '@typescript-eslint/no-shadow': ['error'],
