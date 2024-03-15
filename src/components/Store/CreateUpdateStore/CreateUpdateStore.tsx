@@ -5,6 +5,7 @@ import { Field, Form, Formik } from 'formik';
 
 import { createStore } from '../../../redux/slices/storeSlice';
 import { AppDispatch } from '../../../redux/store/store';
+import { StoreSchema } from '../../../schema/storeSchema';
 import { CreateStoreType } from '../../../types/storeTypes';
 import InputField from '../../_shared/InputField/InputField';
 import Modal from '../../_shared/Modal/Modal';
@@ -26,22 +27,28 @@ const CreateStore = (): JSX.Element => {
       </Button>
       <Modal isShow={isShow} onHide={onHide} heading="Add Store" subHeading="Please Enter the name for the Store">
         <div className={styles.container}>
-          <Formik initialValues={{ name: '', location: '' }} onSubmit={(values) => handleSubmit(values)}>
-            <Form>
-              <div className={styles.inputContainer}>
-                <Field type="text" name="name" placeholder="Name" component={InputField} />
-                <Field type="text" name="location" placeholder="Location" component={InputField} />
-              </div>
+          <Formik
+            initialValues={{ name: '', location: '' }}
+            onSubmit={(values) => handleSubmit(values)}
+            validationSchema={StoreSchema}
+          >
+            {({ isValid, dirty: isDirty }) => (
+              <Form>
+                <div className={styles.inputContainer}>
+                  <Field type="text" name="name" placeholder="Name" component={InputField} />
+                  <Field type="text" name="location" placeholder="Location" component={InputField} />
+                </div>
 
-              <div className={styles.buttonContainer}>
-                <Button variant="outline-danger" onClick={onHide}>
-                  Close
-                </Button>
-                <Button variant="outline-success" type="submit">
-                  Create
-                </Button>
-              </div>
-            </Form>
+                <div className={styles.buttonContainer}>
+                  <Button variant="outline-danger" onClick={onHide}>
+                    Close
+                  </Button>
+                  <Button variant="outline-success" type="submit" disabled={!isDirty || !isValid}>
+                    Create
+                  </Button>
+                </div>
+              </Form>
+            )}
           </Formik>
         </div>
       </Modal>

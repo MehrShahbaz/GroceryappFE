@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { createCategoryService, getAllCategoriesService, updateCategoryService } from '../../services/categoryService';
+import {
+  createCategoryService,
+  deleteCategoryService,
+  getAllCategoriesService,
+  updateCategoryService,
+} from '../../services/categoryService';
 import { Category, CategoryParams, CategoryState } from '../../types/categoryTypes';
 
 const initialState: CategoryState = {
@@ -37,6 +42,21 @@ const categorySlice = createSlice({
       }
     });
     builder.addCase(createCategory.rejected, (state, _action) => {
+      state.loading = false;
+    });
+    builder.addCase(deleteCategory.pending, (state, _action) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteCategory.fulfilled, (state, action) => {
+      state.loading = false;
+
+      const index = state.categories.findIndex((category) => category._id === action.payload);
+
+      if (index !== -1) {
+        state.categories.splice(index, 1);
+      }
+    });
+    builder.addCase(deleteCategory.rejected, (state, _action) => {
       state.loading = false;
     });
   },
@@ -81,5 +101,15 @@ export const updateCategory = createAsyncThunk(
     }
   }
 );
+
+export const deleteCategory = createAsyncThunk('category/delete', async (id: string) => {
+  try {
+    await deleteCategoryService(id);
+
+    return id;
+  } catch (err) {
+    console.log(err);
+  }
+});
 
 export default categorySlice.reducer;

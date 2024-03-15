@@ -12,3 +12,5 @@ export const createStoreService = (params: StoreParams): AxiosPromise =>
 
 export const updateStoreService = (params: StoreParams, id: string): AxiosPromise =>
   baseService.put(storeURLS.updateStore(id), params);
+
+export const deleteStoreService = (id: string): AxiosPromise => baseService.delete(storeURLS.updateStore(id));
