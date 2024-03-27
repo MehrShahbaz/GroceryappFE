@@ -15,3 +15,9 @@ export const storeURLS = {
   createStore: '/store',
   updateStore: (id: string) => `/store/${id}`,
 };
+
+export const productURLS = {
+  getAllProducts: '/products',
+  createProduct: '/product',
+  updateProduct: (id: string) => `/product/${id}`,
+};

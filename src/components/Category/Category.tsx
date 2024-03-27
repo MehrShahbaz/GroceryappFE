@@ -36,6 +36,7 @@ const Categories = (): JSX.Element => {
             <tr>
               <th>#</th>
               <th>Category Name</th>
+              <th>Products</th>
               <th>Product Count</th>
               <th>Actions</th>
             </tr>
@@ -48,6 +49,7 @@ const Categories = (): JSX.Element => {
                 <tr key={id}>
                   <td>{index + 1}</td>
                   <td>{name}</td>
+                  <td>{products[0]?.name ?? 'None'}</td>
                   <td>{products.length}</td>
                   <td className={styles.actions}>
                     <button>

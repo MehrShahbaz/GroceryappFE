@@ -7,10 +7,10 @@ import styles from './Home.module.scss';
 
 const HomePage = (): JSX.Element => (
   <div className={styles.container} id="Home">
+    <Product />
     <Category />
     <Manufacturer />
     <StoreComponent />
-    <Product />
   </div>
 );
 
