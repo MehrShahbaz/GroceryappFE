@@ -12,3 +12,6 @@ export const createManufacturerService = (params: ManufacturerParams): AxiosProm
 
 export const updateManufacturerService = (params: ManufacturerParams, id: string): AxiosPromise =>
   baseService.put(manufacturerURLS.updateManufacturer(id), params);
+
+export const deleteManufacturerService = (id: string): AxiosPromise =>
+  baseService.delete(manufacturerURLS.updateManufacturer(id));

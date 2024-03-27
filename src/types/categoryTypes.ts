@@ -2,10 +2,15 @@ export type CategoryParams = {
   name: string;
 };
 
+type CategoryProduct = {
+  _id: string;
+  name: string;
+};
+
 export type Category = {
   _id: string;
   name: string;
-  products: string[];
+  products: CategoryProduct[];
   createdAt: Date;
 };
 
