@@ -9,7 +9,7 @@ interface SelectStoreProps extends FieldProps {
   options: Store[];
 }
 
-const SelectStore: React.FC<SelectStoreProps> = ({ field, form }) => {
+const SelectFoodMart: React.FC<SelectStoreProps> = ({ field, form }) => {
   const store = useSelector(selectAllStores);
 
   return (
@@ -29,4 +29,4 @@ const SelectStore: React.FC<SelectStoreProps> = ({ field, form }) => {
   );
 };
 
-export default SelectStore;
+export default SelectFoodMart;

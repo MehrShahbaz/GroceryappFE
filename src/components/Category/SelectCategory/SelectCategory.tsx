@@ -22,7 +22,7 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({ field, form }) => {
         isClearable
         isSearchable
         isMulti={false}
-        getOptionValue={(option: Category) => `${option._id}`}
+        getOptionValue={(option: Category) => `${option.id}`}
         getOptionLabel={(option: Category) => `${option.name}`}
         onChange={(option) => form.setFieldValue(field.name, option)} // Set field value
       />

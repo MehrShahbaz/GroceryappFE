@@ -3,12 +3,12 @@ export type CategoryParams = {
 };
 
 type CategoryProduct = {
-  _id: string;
+  id: string;
   name: string;
 };
 
 export type Category = {
-  _id: string;
+  id: string;
   name: string;
   products: CategoryProduct[];
   createdAt: Date;

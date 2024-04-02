@@ -50,7 +50,7 @@ const categorySlice = createSlice({
     builder.addCase(deleteCategory.fulfilled, (state, action) => {
       state.loading = false;
 
-      const index = state.categories.findIndex((category) => category._id === action.payload);
+      const index = state.categories.findIndex((category) => category.id === action.payload);
 
       if (index !== -1) {
         state.categories.splice(index, 1);

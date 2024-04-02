@@ -41,7 +41,7 @@ const Categories = (): JSX.Element => {
           </thead>
           <tbody>
             {categories.map((category, index) => {
-              const { name, _id: id } = category;
+              const { name, id } = category;
 
               return (
                 <tr key={id}>

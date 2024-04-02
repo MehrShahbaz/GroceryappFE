@@ -10,8 +10,8 @@ import { CreateProductType, ProductIntialType, PRODUCY_INTIAL_VALUES } from '../
 import InputField from '../../_shared/InputField/InputField';
 import Modal from '../../_shared/Modal/Modal';
 import SelectCategory from '../../Category/SelectCategory/SelectCategory';
+import SelectFoodMart from '../../FoodMart/SelectFoodMart/SelectFoodMart';
 import SelectManufacturer from '../../Manufacturer/SelectManufacturer/SelectManufacturer';
-import SelectStore from '../../Store/SelectStore/SelectStore';
 
 import styles from './CreateUpdateProduct.module.scss';
 
@@ -22,7 +22,7 @@ const CreateProduct = (): JSX.Element => {
     console.log(values);
     const data: CreateProductType = {
       ...values,
-      category: values.category?._id ? values.category._id : '',
+      category: values.category?.id ? values.category.id : '',
       manufacturer: values.manufacturer?._id ? values.manufacturer._id : '',
       store: values.store?._id ? values.store._id : '',
     };
@@ -45,7 +45,7 @@ const CreateProduct = (): JSX.Element => {
                 <Field type="number" name="price" placeholder="Price" component={InputField} min={0} />
                 <Field name="category" component={SelectCategory} />
                 <Field name="manufacturer" component={SelectManufacturer} />
-                <Field name="store" component={SelectStore} />
+                <Field name="store" component={SelectFoodMart} />
                 <div className={styles.buttonContainer}>
                   <Button variant="outline-danger" onClick={onHide}>
                     Close

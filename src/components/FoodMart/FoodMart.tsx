@@ -8,11 +8,11 @@ import { selectAllStores } from '../../redux/selectors/storeSelector';
 import { deleteStore, fetchStoress } from '../../redux/slices/storeSlice';
 import { AppDispatch } from '../../redux/store/store';
 
-import CreateStore from './CreateUpdateStore/CreateUpdateStore';
+import CreateStore from './CreateUpdateFoodMart/CreateUpdateStore';
 
 import styles from './Store.module.scss';
 
-const StoreComponent = (): JSX.Element => {
+const FoodMart = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const stores = useSelector(selectAllStores);
 
@@ -73,4 +73,4 @@ const StoreComponent = (): JSX.Element => {
   );
 };
 
-export default StoreComponent;
+export default FoodMart;
