@@ -2,8 +2,10 @@ import { useEffect } from 'react'; // Import useEffect
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from 'react-redux';
 
+import { ReactComponent as DeleteIcon } from '../../assets/deleteIcon.svg';
+import { ReactComponent as EditIcon } from '../../assets/editIcon.svg';
 import { selectAllStores } from '../../redux/selectors/storeSelector';
-import { fetchStoress } from '../../redux/slices/storeSlice';
+import { deleteStore, fetchStoress } from '../../redux/slices/storeSlice';
 import { AppDispatch } from '../../redux/store/store';
 
 import CreateStore from './CreateUpdateStore/CreateUpdateStore';
@@ -17,6 +19,10 @@ const StoreComponent = (): JSX.Element => {
   useEffect(() => {
     dispatch(fetchStoress());
   }, [dispatch]);
+
+  const handleDelete = (id: string): void => {
+    dispatch(deleteStore(id));
+  };
 
   return (
     <div className={styles.container}>
@@ -43,9 +49,20 @@ const StoreComponent = (): JSX.Element => {
                 <tr key={id}>
                   <td>{index + 1}</td>
                   <td>{name}</td>
-                  <td>{location}</td>
+                  <td>
+                    <a href={location} target="_blank" rel="noreferrer">
+                      Location
+                    </a>
+                  </td>
                   <td>{products.length}</td>
-                  <td>Actions</td>
+                  <td className={styles.actions}>
+                    <button>
+                      <EditIcon className={styles.icon} />
+                    </button>
+                    <button>
+                      <DeleteIcon className={styles.icon} onClick={() => handleDelete(id)} />
+                    </button>
+                  </td>
                 </tr>
               );
             })}

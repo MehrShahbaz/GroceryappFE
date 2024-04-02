@@ -5,7 +5,9 @@ import { Field, Form, Formik } from 'formik';
 
 import { createManufacturer } from '../../../redux/slices/manufacturerSlice';
 import { AppDispatch } from '../../../redux/store/store';
+import { ManufacturerSchema } from '../../../schema/storeSchema';
 import { CreateManufacturerType } from '../../../types/manufacturerTypes';
+import InputField from '../../_shared/InputField/InputField';
 import Modal from '../../_shared/Modal/Modal';
 
 import styles from './styles.module.scss';
@@ -30,18 +32,24 @@ const CreateManufacturer = (): JSX.Element => {
         subHeading="Please Enter the name for the Manufacturer"
       >
         <div>
-          <Formik initialValues={{ name: '' }} onSubmit={(values) => handleSubmit(values)}>
-            <Form>
-              <Field type="text" name="name" placeholder="Name" />
-              <div className={styles.buttonContainer}>
-                <Button variant="outline-danger" onClick={onHide}>
-                  Close
-                </Button>
-                <Button variant="outline-success" type="submit">
-                  Create
-                </Button>
-              </div>
-            </Form>
+          <Formik
+            initialValues={{ name: '' }}
+            onSubmit={(values) => handleSubmit(values)}
+            validationSchema={ManufacturerSchema}
+          >
+            {({ isValid, dirty: isDirty }) => (
+              <Form>
+                <Field type="text" name="name" placeholder="Name" component={InputField} />
+                <div className={styles.buttonContainer}>
+                  <Button variant="outline-danger" onClick={onHide}>
+                    Close
+                  </Button>
+                  <Button variant="outline-success" type="submit" disabled={!isDirty || !isValid}>
+                    Create
+                  </Button>
+                </div>
+              </Form>
+            )}
           </Formik>
         </div>
       </Modal>

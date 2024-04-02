@@ -1,6 +1,11 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 
-import { createStoreService, getAllStoresService, updateStoreService } from '../../services/storeService';
+import {
+  createStoreService,
+  deleteStoreService,
+  getAllStoresService,
+  updateStoreService,
+} from '../../services/storeService';
 import { Store, StoreParams, StoreState } from '../../types/storeTypes';
 
 const initialState: StoreState = {
@@ -39,6 +44,21 @@ const StoreSlice = createSlice({
     builder.addCase(createStore.rejected, (state, _action) => {
       state.loading = false;
     });
+    builder.addCase(deleteStore.pending, (state, _action) => {
+      state.loading = true;
+    });
+    builder.addCase(deleteStore.fulfilled, (state, action) => {
+      state.loading = false;
+
+      const index = state.stores.findIndex((store) => store._id === action.payload);
+
+      if (index !== -1) {
+        state.stores.splice(index, 1);
+      }
+    });
+    builder.addCase(deleteStore.rejected, (state, _action) => {
+      state.loading = false;
+    });
   },
 });
 
@@ -46,7 +66,7 @@ export const fetchStoress = createAsyncThunk('Store/fetchStoress', async () => {
   try {
     const response = await getAllStoresService();
 
-    return response.data.stores;
+    return response.data.food_mart;
   } catch (err) {
     console.log(err);
   }
@@ -56,8 +76,6 @@ export const createStore = createAsyncThunk('Store/createStore', async (params: 
   try {
     const response = await createStoreService(params);
     const data: Store = response.data;
-
-    console.log(data);
 
     return data;
   } catch (err) {
@@ -76,6 +94,16 @@ export const updateStore = createAsyncThunk('Store/updateStore', async ({ params
     const data: Store = response.data;
 
     return data;
+  } catch (err) {
+    console.log(err);
+  }
+});
+
+export const deleteStore = createAsyncThunk('Store/deleteStore', async (id: string) => {
+  try {
+    await deleteStoreService(id);
+
+    return id;
   } catch (err) {
     console.log(err);
   }

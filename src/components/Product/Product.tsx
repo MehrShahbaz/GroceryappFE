@@ -1,52 +1,59 @@
-import { useEffect } from 'react'; // Import useEffect
+import { useEffect } from 'react';
 import Table from 'react-bootstrap/Table';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { ReactComponent as DeleteIcon } from '../../assets/deleteIcon.svg';
 import { ReactComponent as EditIcon } from '../../assets/editIcon.svg';
-import { selectAllCategories } from '../../redux/selectors/categorySelector';
-import { deleteCategory, fetchCategories } from '../../redux/slices/categorySlice';
+import { selectAllProducts } from '../../redux/selectors/productSelector';
+import { deleteProduct, fetchProducts } from '../../redux/slices/productSlice';
 import { AppDispatch } from '../../redux/store/store';
+import SelectCategories from '../Category/SelectCategories/SelectCategories';
 
-import CreateCategory from './CreateUpdateCategoey/CreateUpdateCategoey';
+import CreateProduct from './CreateUpdateProduct/CreateUpdateProduct';
 
-import styles from './Category.module.scss';
+import styles from './Product.module.scss';
 
-const Categories = (): JSX.Element => {
+const Product = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
-  const categories = useSelector(selectAllCategories);
 
   useEffect(() => {
-    dispatch(fetchCategories());
+    dispatch(fetchProducts());
   }, [dispatch]);
-
+  const products = useSelector(selectAllProducts);
   const handleDelete = (id: string): void => {
-    dispatch(deleteCategory(id));
+    dispatch(deleteProduct(id));
   };
 
   return (
     <div className={styles.container}>
+      <div>
+        <SelectCategories />
+      </div>
       <div className={styles.headingContainer}>
-        <h1>Categories</h1>
-        <CreateCategory />
+        <h1>Products</h1>
+        <CreateProduct />
       </div>
       <div>
         <Table striped>
           <thead>
             <tr>
               <th>#</th>
-              <th>Category Name</th>
-              <th style={{ display: 'flex', justifyContent: 'center' }}>Actions</th>
+              <th>Product's Name</th>
+              <th>Category</th>
+              <th>Store</th>
+              <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {categories.map((category, index) => {
-              const { name, _id: id } = category;
+            {products.map((product, index) => {
+              const { name, category, _id: id, store } = product;
 
               return (
                 <tr key={id}>
                   <td>{index + 1}</td>
                   <td>{name}</td>
+                  <td>{category.name}</td>
+                  <td>{store.name}</td>
                   <td className={styles.actions}>
                     <button>
                       <EditIcon className={styles.icon} />
@@ -65,4 +72,4 @@ const Categories = (): JSX.Element => {
   );
 };
 
-export default Categories;
+export default Product;

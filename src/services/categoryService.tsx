@@ -12,3 +12,5 @@ export const createCategoryService = (params: CategoryParams): AxiosPromise =>
 
 export const updateCategoryService = (params: CategoryParams, id: string): AxiosPromise =>
   baseService.put(categoryURLS.updateCategory(id), params);
+
+export const deleteCategoryService = (id: string): AxiosPromise => baseService.delete(categoryURLS.updateCategory(id));
