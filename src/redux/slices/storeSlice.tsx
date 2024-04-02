@@ -66,7 +66,7 @@ export const fetchStoress = createAsyncThunk('Store/fetchStoress', async () => {
   try {
     const response = await getAllStoresService();
 
-    return response.data.stores;
+    return response.data.food_mart;
   } catch (err) {
     console.log(err);
   }

@@ -36,21 +36,17 @@ const Categories = (): JSX.Element => {
             <tr>
               <th>#</th>
               <th>Category Name</th>
-              <th>Products</th>
-              <th>Product Count</th>
-              <th>Actions</th>
+              <th style={{ display: 'flex', justifyContent: 'center' }}>Actions</th>
             </tr>
           </thead>
           <tbody>
             {categories.map((category, index) => {
-              const { name, products, _id: id } = category;
+              const { name, _id: id } = category;
 
               return (
                 <tr key={id}>
                   <td>{index + 1}</td>
                   <td>{name}</td>
-                  <td>{products[0]?.name ?? 'None'}</td>
-                  <td>{products.length}</td>
                   <td className={styles.actions}>
                     <button>
                       <EditIcon className={styles.icon} />

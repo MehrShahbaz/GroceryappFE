@@ -7,6 +7,7 @@ import { ReactComponent as EditIcon } from '../../assets/editIcon.svg';
 import { selectAllProducts } from '../../redux/selectors/productSelector';
 import { deleteProduct, fetchProducts } from '../../redux/slices/productSlice';
 import { AppDispatch } from '../../redux/store/store';
+import SelectCategories from '../Category/SelectCategories/SelectCategories';
 
 import CreateProduct from './CreateUpdateProduct/CreateUpdateProduct';
 
@@ -25,6 +26,9 @@ const Product = (): JSX.Element => {
 
   return (
     <div className={styles.container}>
+      <div>
+        <SelectCategories />
+      </div>
       <div className={styles.headingContainer}>
         <h1>Products</h1>
         <CreateProduct />
