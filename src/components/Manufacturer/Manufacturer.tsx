@@ -5,7 +5,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { ReactComponent as DeleteIcon } from '../../assets/deleteIcon.svg';
 import { ReactComponent as EditIcon } from '../../assets/editIcon.svg';
 import { selectAllManufacturers } from '../../redux/selectors/manufacturerSelector';
-import { deleteManufacturer, fetcManufacturers } from '../../redux/slices/manufacturerSlice';
+import { deleteManufacturer, fetchManufacturers } from '../../redux/slices/manufacturerSlice';
 import { AppDispatch } from '../../redux/store/store';
 
 import CreateManufacturer from './CreateUpdateManufacturer/CreateUpdateManufacturer';
@@ -17,10 +17,10 @@ const Manufacturer = (): JSX.Element => {
   const manufacturers = useSelector(selectAllManufacturers);
 
   useEffect(() => {
-    dispatch(fetcManufacturers());
+    dispatch(fetchManufacturers());
   }, [dispatch]);
 
-  const handleDelete = (id: string): void => {
+  const handleDelete = (id: number): void => {
     dispatch(deleteManufacturer(id));
   };
 
@@ -42,7 +42,7 @@ const Manufacturer = (): JSX.Element => {
           </thead>
           <tbody>
             {manufacturers.map((manufacturer, index) => {
-              const { name, products, _id: id } = manufacturer;
+              const { name, products, id } = manufacturer;
 
               return (
                 <tr key={id}>

@@ -1,9 +1,12 @@
 // CreateProduct.tsx
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
 
+import { fetchCategories } from '../../../redux/slices/categorySlice';
+import { fetchFoodMart } from '../../../redux/slices/foodMartSlice';
+import { fetchManufacturers } from '../../../redux/slices/manufacturerSlice';
 import { createProduct } from '../../../redux/slices/productSlice';
 import { AppDispatch } from '../../../redux/store/store';
 import { CreateProductType, ProductIntialType, PRODUCY_INTIAL_VALUES } from '../../../types/productTypes';
@@ -18,13 +21,21 @@ import styles from './CreateUpdateProduct.module.scss';
 const CreateProduct = (): JSX.Element => {
   const [isShow, setIsShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
+
+  useEffect(() => {
+    dispatch(fetchCategories());
+    dispatch(fetchManufacturers());
+    dispatch(fetchFoodMart());
+  }, [dispatch]);
+
   const handleSubmit = (values: ProductIntialType): void => {
-    console.log(values);
+    console.log(values.categories);
     const data: CreateProductType = {
-      ...values,
-      category: values.category?.id ? values.category.id : '',
-      manufacturer: values.manufacturer?._id ? values.manufacturer._id : '',
-      store: values.store?._id ? values.store._id : '',
+      category_ids: [values.categories?.id || 0],
+      name: values.name,
+      food_mart_id: values.foodMart?.id,
+      manufacturer_id: values.manufacturer?.id,
+      price_attributes: { amount: values.price },
     };
 
     dispatch(createProduct(data)).then(() => onHide());
@@ -43,9 +54,9 @@ const CreateProduct = (): JSX.Element => {
               <div className={styles.formContainer}>
                 <Field type="text" name="name" placeholder="Name" component={InputField} />
                 <Field type="number" name="price" placeholder="Price" component={InputField} min={0} />
-                <Field name="category" component={SelectCategory} />
+                <Field name="categories" component={SelectCategory} />
                 <Field name="manufacturer" component={SelectManufacturer} />
-                <Field name="store" component={SelectFoodMart} />
+                <Field name="foodMart" component={SelectFoodMart} />
                 <div className={styles.buttonContainer}>
                   <Button variant="outline-danger" onClick={onHide}>
                     Close

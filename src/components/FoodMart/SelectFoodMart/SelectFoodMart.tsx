@@ -2,27 +2,27 @@ import { useSelector } from 'react-redux';
 import Select from 'react-select';
 import { FieldProps } from 'formik';
 
-import { selectAllStores } from '../../../redux/selectors/storeSelector';
-import { Store } from '../../../types/storeTypes';
+import { selectAllFoodMarts } from '../../../redux/selectors/foodMartSelector';
+import { FoodMart } from '../../../types/foodMartTypes';
 
 interface SelectStoreProps extends FieldProps {
-  options: Store[];
+  options: FoodMart[];
 }
 
 const SelectFoodMart: React.FC<SelectStoreProps> = ({ field, form }) => {
-  const store = useSelector(selectAllStores);
+  const foodMart = useSelector(selectAllFoodMarts);
 
   return (
     <div>
       <Select
         {...field}
-        options={store}
-        placeholder="Select Store"
+        options={foodMart}
+        placeholder="Select Food Mart"
         isClearable
         isSearchable
         isMulti={false}
-        getOptionValue={(option: Store) => `${option._id}`}
-        getOptionLabel={(option: Store) => `${option.name}`}
+        getOptionValue={(option: FoodMart) => `${option.id}`}
+        getOptionLabel={(option: FoodMart) => `${option.name} - ${option.note}`}
         onChange={(option) => form.setFieldValue(field.name, option)} // Set field value
       />
     </div>

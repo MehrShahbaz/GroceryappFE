@@ -21,7 +21,7 @@ const SelectManufacturer: React.FC<SelectManufacturerProps> = ({ field, form }) 
         isClearable
         isSearchable
         isMulti={false}
-        getOptionValue={(option: Manufacturer) => `${option._id}`}
+        getOptionValue={(option: Manufacturer) => `${option.id}`}
         getOptionLabel={(option: Manufacturer) => `${option.name}`}
         onChange={(option) => form.setFieldValue(field.name, option)} // Set field value
       />

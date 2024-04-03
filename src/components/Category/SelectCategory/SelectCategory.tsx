@@ -4,10 +4,10 @@ import Select from 'react-select';
 import { FieldProps } from 'formik';
 
 import { selectAllCategories } from '../../../redux/selectors/categorySelector';
-import { Category } from '../../../types/categoryTypes';
+import { CategoryType } from '../../../types/categoryTypes';
 
 interface SelectCategoryProps extends FieldProps {
-  options: Category[];
+  options: CategoryType[];
 }
 
 const SelectCategory: React.FC<SelectCategoryProps> = ({ field, form }) => {
@@ -22,8 +22,8 @@ const SelectCategory: React.FC<SelectCategoryProps> = ({ field, form }) => {
         isClearable
         isSearchable
         isMulti={false}
-        getOptionValue={(option: Category) => `${option.id}`}
-        getOptionLabel={(option: Category) => `${option.name}`}
+        getOptionValue={(option: CategoryType) => `${option.id}`}
+        getOptionLabel={(option: CategoryType) => `${option.name}`}
         onChange={(option) => form.setFieldValue(field.name, option)} // Set field value
       />
     </div>

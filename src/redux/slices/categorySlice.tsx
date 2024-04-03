@@ -6,7 +6,7 @@ import {
   getAllCategoriesService,
   updateCategoryService,
 } from '../../services/categoryService';
-import { Category, CategoryParams, CategoryState } from '../../types/categoryTypes';
+import { CategoryParams, CategoryState, CategoryType } from '../../types/categoryTypes';
 
 const initialState: CategoryState = {
   categories: [],
@@ -66,7 +66,7 @@ export const fetchCategories = createAsyncThunk('category/fetchCategories', asyn
   try {
     const response = await getAllCategoriesService();
 
-    return response.data.categories;
+    return response.data;
   } catch (err) {
     console.log(err);
   }
@@ -75,7 +75,7 @@ export const fetchCategories = createAsyncThunk('category/fetchCategories', asyn
 export const createCategory = createAsyncThunk('category/createCategory', async (params: CategoryParams) => {
   try {
     const response = await createCategoryService(params);
-    const data: Category = response.data;
+    const data: CategoryType = response.data.category;
 
     return data;
   } catch (err) {
@@ -85,7 +85,7 @@ export const createCategory = createAsyncThunk('category/createCategory', async 
 
 type UpdateCategoryType = {
   params: CategoryParams;
-  id: string;
+  id: number;
 };
 
 export const updateCategory = createAsyncThunk(
@@ -93,7 +93,7 @@ export const updateCategory = createAsyncThunk(
   async ({ params, id }: UpdateCategoryType) => {
     try {
       const response = await updateCategoryService(params, id);
-      const data: Category = response.data;
+      const data: CategoryType = response.data;
 
       return data;
     } catch (err) {
@@ -102,7 +102,7 @@ export const updateCategory = createAsyncThunk(
   }
 );
 
-export const deleteCategory = createAsyncThunk('category/delete', async (id: string) => {
+export const deleteCategory = createAsyncThunk('category/delete', async (id: number) => {
   try {
     await deleteCategoryService(id);
 
