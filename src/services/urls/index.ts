@@ -19,5 +19,5 @@ export const foodMartURLS = {
 export const productURLS = {
   getAllProducts: '/products',
   createProduct: '/products',
-  updateProduct: (id: number) => `/product/${id}`,
+  updateProduct: (id: number) => `/products/${id}`,
 };

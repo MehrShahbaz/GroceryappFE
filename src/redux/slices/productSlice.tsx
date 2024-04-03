@@ -47,14 +47,14 @@ const ProductSlice = createSlice({
     builder.addCase(deleteProduct.pending, (state, _action) => {
       state.loading = true;
     });
-    builder.addCase(deleteProduct.fulfilled, (state, _action) => {
+    builder.addCase(deleteProduct.fulfilled, (state, action) => {
       state.loading = false;
 
-      // const index = state.products.findIndex((product) => product.id === action.payload);
+      const index = state.products.findIndex((product) => product.id === action.payload);
 
-      // if (index !== -1) {
-      //   state.products.splice(index, 1);
-      // }
+      if (index !== -1) {
+        state.products.splice(index, 1);
+      }
     });
     builder.addCase(deleteProduct.rejected, (state, _action) => {
       state.loading = false;
