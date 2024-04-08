@@ -4,9 +4,8 @@
   }
   .headingContainer {
     display: flex;
-    flex-direction: column;
-    justify-content: space-between;
 
+    gap: 25px;
     button {
       width: fit-content;
       margin-bottom: 10px;
@@ -27,6 +26,12 @@
       background: transparent;
       padding: 0;
     }
+  }
+
+  .searchContainer {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
   }
 }
 

@@ -81,4 +81,5 @@ export const PRODUCY_INTIAL_VALUES: ProductIntialType = {
 export type FetchProductsParams = {
   page?: number;
   perPage?: number;
+  search?: string;
 };
