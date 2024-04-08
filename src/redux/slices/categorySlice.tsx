@@ -62,9 +62,9 @@ const categorySlice = createSlice({
   },
 });
 
-export const fetchCategories = createAsyncThunk('category/fetchCategories', async () => {
+export const fetchCategories = createAsyncThunk('category/fetchCategories', async (params?: string) => {
   try {
-    const response = await getAllCategoriesService();
+    const response = await getAllCategoriesService(params);
 
     return response.data;
   } catch (err) {
@@ -75,7 +75,7 @@ export const fetchCategories = createAsyncThunk('category/fetchCategories', asyn
 export const createCategory = createAsyncThunk('category/createCategory', async (params: CategoryParams) => {
   try {
     const response = await createCategoryService(params);
-    const data: CategoryType = response.data.category;
+    const data: CategoryType = response.data;
 
     return data;
   } catch (err) {

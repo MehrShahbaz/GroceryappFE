@@ -1,5 +1,5 @@
 // CreateProduct.tsx
-import { useEffect, useState } from 'react';
+import { useEffect } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
@@ -18,8 +18,12 @@ import SelectManufacturer from '../../Manufacturer/SelectManufacturer/SelectManu
 
 import styles from './CreateUpdateProduct.module.scss';
 
-const CreateProduct = (): JSX.Element => {
-  const [isShow, setIsShow] = useState(false);
+type CreateProductProps = {
+  isShow: boolean;
+  setIsShow: (flag: boolean) => void;
+};
+
+const CreateProduct = ({ isShow, setIsShow }: CreateProductProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -29,14 +33,16 @@ const CreateProduct = (): JSX.Element => {
   }, [dispatch]);
 
   const handleSubmit = (values: ProductIntialType): void => {
-    console.log(values.categories);
-    const data: CreateProductType = {
-      category_ids: [values.categories?.id || 0],
+    let data: CreateProductType = {
       name: values.name,
       food_mart_id: values.foodMart?.id,
       manufacturer_id: values.manufacturer?.id,
-      price_attributes: { amount: values.price },
+      prices_attributes: [{ amount: values.price }],
     };
+
+    if (values.categories?.id) {
+      data = { ...data, category_ids: [values.categories.id] };
+    }
 
     dispatch(createProduct(data)).then(() => onHide());
   };
@@ -44,29 +50,28 @@ const CreateProduct = (): JSX.Element => {
 
   return (
     <div>
-      <Button variant="outline-success" onClick={() => setIsShow(true)}>
-        Create Product
-      </Button>
       <Modal isShow={isShow} onHide={onHide} heading="Add Product" subHeading="Enter Details of the Product">
         <div>
           <Formik initialValues={PRODUCY_INTIAL_VALUES} onSubmit={(values) => handleSubmit(values)}>
-            <Form>
-              <div className={styles.formContainer}>
-                <Field type="text" name="name" placeholder="Name" component={InputField} />
-                <Field type="number" name="price" placeholder="Price" component={InputField} min={0} />
-                <Field name="categories" component={SelectCategory} />
-                <Field name="manufacturer" component={SelectManufacturer} />
-                <Field name="foodMart" component={SelectFoodMart} />
-                <div className={styles.buttonContainer}>
-                  <Button variant="outline-danger" onClick={onHide}>
-                    Close
-                  </Button>
-                  <Button variant="outline-success" type="submit">
-                    Create
-                  </Button>
+            {({ dirty: isDirty, isValid }) => (
+              <Form>
+                <div className={styles.formContainer}>
+                  <Field type="text" name="name" placeholder="Name" component={InputField} />
+                  <Field type="number" name="price" placeholder="Price" component={InputField} />
+                  <Field name="categories" component={SelectCategory} />
+                  <Field name="manufacturer" component={SelectManufacturer} />
+                  <Field name="foodMart" component={SelectFoodMart} />
+                  <div className={styles.buttonContainer}>
+                    <Button variant="outline-danger" onClick={onHide}>
+                      Close
+                    </Button>
+                    <Button variant="outline-success" type="submit" disabled={!isDirty || !isValid}>
+                      Create
+                    </Button>
+                  </div>
                 </div>
-              </div>
-            </Form>
+              </Form>
+            )}
           </Formik>
         </div>
       </Modal>

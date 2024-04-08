@@ -1,5 +1,5 @@
 export const categoryURLS = {
-  getAllCategories: '/categories',
+  getAllCategories: (params?: string) => `/categories${params ? `?search=${params}` : ''}`,
   createCategory: '/categories',
   updateCategory: (id: number) => `/categories/${id}`,
 };

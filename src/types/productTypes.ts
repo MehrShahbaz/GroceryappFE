@@ -32,9 +32,9 @@ type PriceType = {
 export type CreateProductType = {
   name: string;
   manufacturer_id: number | undefined;
-  category_ids: number[] | undefined;
+  category_ids?: number[] | undefined;
   food_mart_id: number | undefined;
-  price_attributes: PriceType;
+  prices_attributes: PriceType[];
 };
 
 export type ProductParams = {

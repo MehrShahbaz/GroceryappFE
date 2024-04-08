@@ -5,7 +5,8 @@ import { CategoryParams } from '../types/categoryTypes';
 import baseService from './baseService';
 import { categoryURLS } from './urls';
 
-export const getAllCategoriesService = (): AxiosPromise => baseService.get(categoryURLS.getAllCategories);
+export const getAllCategoriesService = (params?: string): AxiosPromise =>
+  baseService.get(categoryURLS.getAllCategories(params));
 
 export const createCategoryService = (params: CategoryParams): AxiosPromise =>
   baseService.post(categoryURLS.createCategory, params);

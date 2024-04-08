@@ -1,4 +1,5 @@
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
 import { selectAllProducts } from '../../redux/selectors/productSelector';
@@ -11,6 +12,7 @@ import ProductCard from './ProductCard/ProductCard';
 import styles from './Product.module.scss';
 
 const Product = (): JSX.Element => {
+  const [isShow, setIsShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -25,13 +27,16 @@ const Product = (): JSX.Element => {
     <div className={styles.container}>
       <div className={styles.headingContainer}>
         <h1>Products</h1>
-        <CreateProduct />
+        <Button variant="outline-success" onClick={() => setIsShow(true)}>
+          Create Product
+        </Button>
       </div>
       <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
         {products.map((product) => (
           <ProductCard product={product} handleDelete={handleDelete} />
         ))}
       </div>
+      {isShow && <CreateProduct isShow={isShow} setIsShow={(willShow) => setIsShow(willShow)} />}
     </div>
   );
 };

@@ -1,22 +1,25 @@
 .container {
-    .headingContainer {
-        display: flex;
-        justify-content: space-between;
+  a {
+    color: black;
+  }
+  .headingContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+
+  .actions {
+    display: flex;
+    gap: 15px;
+
+    .icon {
+      width: 20px;
+      height: 20px;
     }
 
-    .actions {
-        display: flex;
-        gap: 15px;
-
-        .icon {
-            width: 20px;
-            height: 20px;
-        }
-
-        button {
-            border: none;
-            background: transparent;
-            padding: 0;
-        }
+    button {
+      border: none;
+      background: transparent;
+      padding: 0;
     }
+  }
 }

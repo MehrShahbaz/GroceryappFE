@@ -19,6 +19,7 @@
     "eslint-plugin-prettier": "^4.2.1",
     "eslint-plugin-simple-import-sort": "^10.0.0",
     "formik": "^2.4.5",
+    "lodash": "^4.17.21",
     "node-sass": "^9.0.0",
     "prettier": "^2.8.8",
     "react": "^18.2.0",
@@ -60,5 +61,8 @@
       "last 1 firefox version",
       "last 1 safari version"
     ]
+  },
+  "devDependencies": {
+    "@types/lodash": "^4.17.0"
   }
 }
