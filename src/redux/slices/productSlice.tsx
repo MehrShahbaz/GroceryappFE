@@ -6,12 +6,13 @@ import {
   getAllProductssService,
   updateProductService,
 } from '../../services/productService';
-import { CreateProductType, Product, ProductParams, ProductState } from '../../types/productTypes';
+import { CreateProductType, FetchProductsParams, Product, ProductParams, ProductState } from '../../types/productTypes';
 
 const initialState: ProductState = {
   products: [],
   loading: false,
   error: null,
+  totalCount: 0,
 };
 const ProductSlice = createSlice({
   name: 'Product',
@@ -25,7 +26,8 @@ const ProductSlice = createSlice({
       state.loading = false;
 
       if (action.payload) {
-        state.products = action.payload;
+        state.products = action.payload.products;
+        state.totalCount = action.payload.count;
       }
     });
     builder.addCase(fetchProducts.rejected, (state, _action) => {
@@ -62,9 +64,9 @@ const ProductSlice = createSlice({
   },
 });
 
-export const fetchProducts = createAsyncThunk('Product/fetchProductss', async () => {
+export const fetchProducts = createAsyncThunk('Product/fetchProductss', async (params: FetchProductsParams) => {
   try {
-    const response = await getAllProductssService();
+    const response = await getAllProductssService(params);
 
     return response.data;
   } catch (err) {
