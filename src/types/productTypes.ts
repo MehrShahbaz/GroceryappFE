@@ -1,27 +1,65 @@
-import { Category } from './categoryTypes';
-import { Manufacturer } from './manufacturerTypes';
-import { Store } from './storeTypes';
+type Manufacturer = {
+  id: number;
+  name: string;
+};
+
+type FoodMart = {
+  id: number;
+  name: string;
+  location: string;
+  note: string;
+};
+
+type Category = {
+  id: number;
+  name: string;
+};
+
+type Price = {
+  amount: string;
+};
+
+export type Review = {
+  content: string | undefined;
+  rating: number;
+  title: string | undefined;
+};
+
+type PriceType = {
+  amount: number;
+};
+
+export type CreateProductType = {
+  name: string;
+  manufacturer_id: number | undefined;
+  category_ids?: number[] | undefined;
+  food_mart_id: number | undefined;
+  prices_attributes: PriceType[];
+};
 
 export type ProductParams = {
-  _id: string;
+  id: string;
   name: string;
   manufacturer: string;
   category: string;
   price: number;
 };
 
-type ReferenceItem = {
-  _id: string;
+export type Product = {
+  id: number;
   name: string;
+  manufacturer: Manufacturer;
+  food_mart: FoodMart;
+  categories: Category[];
+  prices: Price[];
+  reviews: Review[];
 };
 
-export type Product = {
-  _id: string;
+export type ProductIntialType = {
   name: string;
-  manufacturer: ReferenceItem;
-  category: ReferenceItem;
-  store: ReferenceItem;
-  createdAt: string;
+  categories: Category | null;
+  manufacturer: Manufacturer | null;
+  foodMart: FoodMart | null;
   price: number;
 };
 
@@ -31,34 +69,10 @@ export type ProductState = {
   error: string | null;
 };
 
-export type CreateProductType = {
-  name: string;
-  manufacturer: string | null;
-  category: string | null;
-  store: string | null;
-  price: number | null;
-};
-
-export type ProductIntialType = {
-  name: string;
-  category: Category | null;
-  manufacturer: Manufacturer | null;
-  store: Store | null;
-  price: number;
-};
-
-export type ProductSubmitType = {
-  name: string;
-  category: Category;
-  manufacturer: Manufacturer;
-  store: Store;
-  price: number;
-};
-
 export const PRODUCY_INTIAL_VALUES: ProductIntialType = {
   name: '',
-  category: null,
+  categories: null,
   manufacturer: null,
-  store: null,
+  foodMart: null,
   price: 0,
 };

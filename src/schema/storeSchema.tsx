@@ -1,4 +1,4 @@
-import { object, string } from 'yup';
+import { number, object, string } from 'yup';
 export const temp = {};
 
 export const StoreSchema = object().shape({
@@ -16,4 +16,5 @@ export const CategorySchema = object().shape({
 
 export const ProductSchema = object().shape({
   name: string().min(2, 'Too Short!').max(50, 'Too Long!').required('Required'),
+  price: number().min(0).required('Required'),
 });

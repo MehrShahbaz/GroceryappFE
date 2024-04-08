@@ -3,7 +3,7 @@ export type ManufacturerParams = {
 };
 
 export type Manufacturer = {
-  _id: string;
+  id: number;
   name: string;
   products: string[];
   createdAt: Date;

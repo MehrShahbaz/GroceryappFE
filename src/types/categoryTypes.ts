@@ -3,19 +3,19 @@ export type CategoryParams = {
 };
 
 type CategoryProduct = {
-  _id: string;
+  id: number;
   name: string;
 };
 
-export type Category = {
-  _id: string;
+export type CategoryType = {
+  id: number;
   name: string;
   products: CategoryProduct[];
   createdAt: Date;
 };
 
 export type CategoryState = {
-  categories: Category[];
+  categories: CategoryType[];
   loading: boolean;
   error: string | null;
 };

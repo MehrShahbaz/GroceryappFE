@@ -50,7 +50,7 @@ const ProductSlice = createSlice({
     builder.addCase(deleteProduct.fulfilled, (state, action) => {
       state.loading = false;
 
-      const index = state.products.findIndex((product) => product._id === action.payload);
+      const index = state.products.findIndex((product) => product.id === action.payload);
 
       if (index !== -1) {
         state.products.splice(index, 1);
@@ -66,7 +66,7 @@ export const fetchProducts = createAsyncThunk('Product/fetchProductss', async ()
   try {
     const response = await getAllProductssService();
 
-    return response.data.products;
+    return response.data;
   } catch (err) {
     console.log(err);
   }
@@ -85,7 +85,7 @@ export const createProduct = createAsyncThunk('Product/createProduct', async (pa
 
 type UpdateProductType = {
   params: ProductParams;
-  id: string;
+  id: number;
 };
 
 export const updateProduct = createAsyncThunk('Product/updateProduct', async ({ params, id }: UpdateProductType) => {
@@ -99,7 +99,7 @@ export const updateProduct = createAsyncThunk('Product/updateProduct', async ({ 
   }
 });
 
-export const deleteProduct = createAsyncThunk('Product/deleteProduct', async (id: string) => {
+export const deleteProduct = createAsyncThunk('Product/deleteProduct', async (id: number) => {
   try {
     await deleteProductService(id);
 

@@ -3,8 +3,8 @@ import Spinner from 'react-bootstrap/Spinner';
 import { useSelector } from 'react-redux';
 
 import { isCategoryLoading } from '../../../redux/selectors/categorySelector';
+import { isStoreLoading } from '../../../redux/selectors/foodMartSelector';
 import { isManufacturerLoading } from '../../../redux/selectors/manufacturerSelector';
-import { isStoreLoading } from '../../../redux/selectors/storeSelector';
 
 import styles from './Loader.module.scss';
 

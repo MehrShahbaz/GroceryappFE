@@ -1,0 +1,14 @@
+.container {
+  .inputContainer {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+  }
+
+  .buttonContainer {
+    display: flex;
+    justify-content: flex-end;
+    padding: 10px 0;
+    gap: 20px;
+  }
+}

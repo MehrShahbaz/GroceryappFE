@@ -10,8 +10,8 @@ export const getAllManufacturersService = (): AxiosPromise => baseService.get(ma
 export const createManufacturerService = (params: ManufacturerParams): AxiosPromise =>
   baseService.post(manufacturerURLS.createManufacturer, params);
 
-export const updateManufacturerService = (params: ManufacturerParams, id: string): AxiosPromise =>
+export const updateManufacturerService = (params: ManufacturerParams, id: number): AxiosPromise =>
   baseService.put(manufacturerURLS.updateManufacturer(id), params);
 
-export const deleteManufacturerService = (id: string): AxiosPromise =>
+export const deleteManufacturerService = (id: number): AxiosPromise =>
   baseService.delete(manufacturerURLS.updateManufacturer(id));

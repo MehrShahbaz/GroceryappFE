@@ -4,30 +4,30 @@ import { useDispatch, useSelector } from 'react-redux';
 
 import { ReactComponent as DeleteIcon } from '../../assets/deleteIcon.svg';
 import { ReactComponent as EditIcon } from '../../assets/editIcon.svg';
-import { selectAllStores } from '../../redux/selectors/storeSelector';
-import { deleteStore, fetchStoress } from '../../redux/slices/storeSlice';
+import { selectAllFoodMarts } from '../../redux/selectors/foodMartSelector';
+import { deleteFoodMart, fetchFoodMart } from '../../redux/slices/foodMartSlice';
 import { AppDispatch } from '../../redux/store/store';
 
-import CreateStore from './CreateUpdateStore/CreateUpdateStore';
+import CreateStore from './CreateUpdateFoodMart/CreateUpdateFoodMart';
 
 import styles from './Store.module.scss';
 
-const StoreComponent = (): JSX.Element => {
+const FoodMart = (): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
-  const stores = useSelector(selectAllStores);
+  const foodMarts = useSelector(selectAllFoodMarts);
 
   useEffect(() => {
-    dispatch(fetchStoress());
+    dispatch(fetchFoodMart());
   }, [dispatch]);
 
-  const handleDelete = (id: string): void => {
-    dispatch(deleteStore(id));
+  const handleDelete = (id: number): void => {
+    dispatch(deleteFoodMart(id));
   };
 
   return (
     <div className={styles.container}>
       <div className={styles.headingContainer}>
-        <h1>Stores</h1>
+        <h1>Food Mart</h1>
         <CreateStore />
       </div>
       <div>
@@ -35,15 +35,15 @@ const StoreComponent = (): JSX.Element => {
           <thead>
             <tr>
               <th>#</th>
-              <th>Store's Name</th>
+              <th>Food Mart's Name</th>
               <th>Location</th>
-              <th>Product Count</th>
+              <th>Note</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
-            {stores.map((store, index) => {
-              const { name, products, location, _id: id } = store;
+            {foodMarts.map((foodMart, index) => {
+              const { name, note, location, id } = foodMart;
 
               return (
                 <tr key={id}>
@@ -54,7 +54,7 @@ const StoreComponent = (): JSX.Element => {
                       Location
                     </a>
                   </td>
-                  <td>{products.length}</td>
+                  <td>{note}</td>
                   <td className={styles.actions}>
                     <button>
                       <EditIcon className={styles.icon} />
@@ -73,4 +73,4 @@ const StoreComponent = (): JSX.Element => {
   );
 };
 
-export default StoreComponent;
+export default FoodMart;

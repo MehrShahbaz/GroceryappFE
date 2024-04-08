@@ -1,73 +1,42 @@
-import { useEffect } from 'react';
-import Table from 'react-bootstrap/Table';
+import { useEffect, useState } from 'react';
+import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
 
-import { ReactComponent as DeleteIcon } from '../../assets/deleteIcon.svg';
-import { ReactComponent as EditIcon } from '../../assets/editIcon.svg';
 import { selectAllProducts } from '../../redux/selectors/productSelector';
 import { deleteProduct, fetchProducts } from '../../redux/slices/productSlice';
 import { AppDispatch } from '../../redux/store/store';
-import SelectCategories from '../Category/SelectCategories/SelectCategories';
 
 import CreateProduct from './CreateUpdateProduct/CreateUpdateProduct';
+import ProductCard from './ProductCard/ProductCard';
 
 import styles from './Product.module.scss';
 
 const Product = (): JSX.Element => {
+  const [isShow, setIsShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
     dispatch(fetchProducts());
   }, [dispatch]);
   const products = useSelector(selectAllProducts);
-  const handleDelete = (id: string): void => {
+  const handleDelete = (id: number): void => {
     dispatch(deleteProduct(id));
   };
 
   return (
     <div className={styles.container}>
-      <div>
-        <SelectCategories />
-      </div>
       <div className={styles.headingContainer}>
         <h1>Products</h1>
-        <CreateProduct />
+        <Button variant="outline-success" onClick={() => setIsShow(true)}>
+          Create Product
+        </Button>
       </div>
-      <div>
-        <Table striped>
-          <thead>
-            <tr>
-              <th>#</th>
-              <th>Product's Name</th>
-              <th>Category</th>
-              <th>Store</th>
-              <th>Actions</th>
-            </tr>
-          </thead>
-          <tbody>
-            {products.map((product, index) => {
-              const { name, category, _id: id, store } = product;
-
-              return (
-                <tr key={id}>
-                  <td>{index + 1}</td>
-                  <td>{name}</td>
-                  <td>{category.name}</td>
-                  <td>{store.name}</td>
-                  <td className={styles.actions}>
-                    <button>
-                      <EditIcon className={styles.icon} />
-                    </button>
-                    <button onClick={() => handleDelete(id)}>
-                      <DeleteIcon className={styles.icon} />
-                    </button>
-                  </td>
-                </tr>
-              );
-            })}
-          </tbody>
-        </Table>
+      <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+        {products.map((product) => (
+          <ProductCard product={product} handleDelete={handleDelete} />
+        ))}
       </div>
+      {isShow && <CreateProduct isShow={isShow} setIsShow={(willShow) => setIsShow(willShow)} />}
     </div>
   );
 };

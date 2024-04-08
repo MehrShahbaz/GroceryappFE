@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit';
 
 import categorySlice from '../slices/categorySlice';
+import storeSlice from '../slices/foodMartSlice';
 import manufacturerSlice from '../slices/manufacturerSlice';
 import productSlice from '../slices/productSlice';
-import storeSlice from '../slices/storeSlice';
 
 const store = configureStore({
   reducer: {

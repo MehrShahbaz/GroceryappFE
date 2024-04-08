@@ -18,17 +18,17 @@ const categorySlice = createSlice({
   initialState,
   reducers: {},
   extraReducers: (builder) => {
-    builder.addCase(fetcManufacturers.pending, (state, _action) => {
+    builder.addCase(fetchManufacturers.pending, (state, _action) => {
       state.loading = true;
     });
-    builder.addCase(fetcManufacturers.fulfilled, (state, action) => {
+    builder.addCase(fetchManufacturers.fulfilled, (state, action) => {
       state.loading = false;
 
       if (action.payload) {
         state.manufacturers = action.payload;
       }
     });
-    builder.addCase(fetcManufacturers.rejected, (state, _action) => {
+    builder.addCase(fetchManufacturers.rejected, (state, _action) => {
       state.loading = false;
     });
     builder.addCase(createManufacturer.pending, (state, _action) => {
@@ -50,7 +50,7 @@ const categorySlice = createSlice({
     builder.addCase(deleteManufacturer.fulfilled, (state, action) => {
       state.loading = false;
 
-      const index = state.manufacturers.findIndex((manufacturer) => manufacturer._id === action.payload);
+      const index = state.manufacturers.findIndex((manufacturer) => manufacturer.id === action.payload);
 
       if (index !== -1) {
         state.manufacturers.splice(index, 1);
@@ -62,11 +62,11 @@ const categorySlice = createSlice({
   },
 });
 
-export const fetcManufacturers = createAsyncThunk('manufacturers/fetchMnufacturers', async () => {
+export const fetchManufacturers = createAsyncThunk('manufacturers/fetchMnufacturers', async () => {
   try {
     const response = await getAllManufacturersService();
 
-    return response.data.manufacturers;
+    return response.data;
   } catch (err) {
     console.log(err);
   }
@@ -88,7 +88,7 @@ export const createManufacturer = createAsyncThunk(
 
 type UpdateCategoryType = {
   params: ManufacturerParams;
-  id: string;
+  id: number;
 };
 
 export const updateManufacturer = createAsyncThunk(
@@ -105,7 +105,7 @@ export const updateManufacturer = createAsyncThunk(
   }
 );
 
-export const deleteManufacturer = createAsyncThunk('manufacturers/delete', async (id: string) => {
+export const deleteManufacturer = createAsyncThunk('manufacturers/delete', async (id: number) => {
   try {
     await deleteManufacturerService(id);
 

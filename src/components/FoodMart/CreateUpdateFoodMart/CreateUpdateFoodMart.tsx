@@ -3,20 +3,20 @@ import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
 
-import { createStore } from '../../../redux/slices/storeSlice';
+import { createFoodMart } from '../../../redux/slices/foodMartSlice';
 import { AppDispatch } from '../../../redux/store/store';
 import { StoreSchema } from '../../../schema/storeSchema';
-import { CreateStoreType } from '../../../types/storeTypes';
+import { CreateFoodMartType } from '../../../types/foodMartTypes';
 import InputField from '../../_shared/InputField/InputField';
 import Modal from '../../_shared/Modal/Modal';
 
-import styles from './CreateUpdateStore.module.scss';
+import styles from './CreateUpdateFoodMart.module.scss';
 
 const CreateStore = (): JSX.Element => {
   const [isShow, setIsShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
-  const handleSubmit = (values: CreateStoreType): void => {
-    dispatch(createStore(values)).then(() => onHide());
+  const handleSubmit = (values: CreateFoodMartType): void => {
+    dispatch(createFoodMart(values)).then(() => onHide());
   };
   const onHide = (): void => setIsShow(false);
 
