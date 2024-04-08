@@ -1,3 +1,5 @@
+import { FetchProductsParams } from '../../types/productTypes';
+
 export const categoryURLS = {
   getAllCategories: (params?: string) => `/categories${params ? `?search=${params}` : ''}`,
   createCategory: '/categories',
@@ -17,7 +19,7 @@ export const foodMartURLS = {
 };
 
 export const productURLS = {
-  getAllProducts: '/products',
+  getAllProducts: ({ page, perPage }: FetchProductsParams) => `/products?page=${page}&per_page=${perPage}`,
   createProduct: '/products',
   updateProduct: (id: number) => `/products/${id}`,
 };

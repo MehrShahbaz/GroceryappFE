@@ -64,6 +64,7 @@ export type ProductIntialType = {
 };
 
 export type ProductState = {
+  totalCount: number;
   products: Product[];
   loading: boolean;
   error: string | null;
@@ -75,4 +76,9 @@ export const PRODUCY_INTIAL_VALUES: ProductIntialType = {
   manufacturer: null,
   foodMart: null,
   price: 0,
+};
+
+export type FetchProductsParams = {
+  page?: number;
+  perPage?: number;
 };

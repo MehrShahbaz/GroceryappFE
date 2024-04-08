@@ -1,11 +1,13 @@
 import { AxiosPromise } from 'axios';
 
 import { FoodMartParams } from '../types/foodMartTypes';
+import { FetchProductsParams } from '../types/productTypes';
 
 import baseService from './baseService';
 import { productURLS } from './urls';
 
-export const getAllProductssService = (): AxiosPromise => baseService.get(productURLS.getAllProducts);
+export const getAllProductssService = (params: FetchProductsParams): AxiosPromise =>
+  baseService.get(productURLS.getAllProducts(params));
 
 export const createProductService = (params: FoodMartParams): AxiosPromise =>
   baseService.post(productURLS.createProduct, { product: params });
