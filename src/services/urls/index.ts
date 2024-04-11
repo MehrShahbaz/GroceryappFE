@@ -8,7 +8,6 @@ export const categoryURLS = {
 
 export const manufacturerURLS = {
   getAllManufacturers: '/manufacturers',
-  createManufacturer: '/manufacturer',
   updateManufacturer: (id: number) => `/manufacturer/${id}`,
 };
 

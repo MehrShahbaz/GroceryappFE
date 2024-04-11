@@ -8,7 +8,7 @@ import { manufacturerURLS } from './urls';
 export const getAllManufacturersService = (): AxiosPromise => baseService.get(manufacturerURLS.getAllManufacturers);
 
 export const createManufacturerService = (params: ManufacturerParams): AxiosPromise =>
-  baseService.post(manufacturerURLS.createManufacturer, params);
+  baseService.post(manufacturerURLS.getAllManufacturers, { manufacturer: params });
 
 export const updateManufacturerService = (params: ManufacturerParams, id: number): AxiosPromise =>
   baseService.put(manufacturerURLS.updateManufacturer(id), params);

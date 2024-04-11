@@ -1,0 +1,46 @@
+.container {
+  height: 35rem;
+  overflow-y: scroll;
+  a {
+    color: black;
+  }
+
+  .actions {
+    display: flex;
+    gap: 15px;
+
+    .icon {
+      width: 20px;
+      height: 20px;
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      padding: 0;
+    }
+  }
+  margin-bottom: 1rem;
+}
+
+.categories {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+  display: flex;
+  flex-wrap: nowrap;
+  overflow: hidden;
+
+  li {
+    margin-right: 5px;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    max-width: 7rem; // Adjust the max-width as needed
+  }
+
+  .lastCategory {
+    max-width: none;
+    text-overflow: ellipsis;
+  }
+}

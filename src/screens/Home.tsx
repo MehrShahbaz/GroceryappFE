@@ -1,19 +1,16 @@
-// import Category from '../components/Category/Category';
+import { Outlet } from 'react-router-dom';
 
-// import Manufacturer from '../components/Manufacturer/Manufacturer';
+import CustomNavbar from 'components/_shared/Navbar/Navbar';
 
-import Product from '../components/Product/Product';
-
-// import FoodMart from '../components/FoodMart/FoodMart';
 import styles from './Home.module.scss';
 
-const HomePage = (): JSX.Element => (
-  <div className={styles.container} id="Home">
-    <Product />
-    {/* <Category /> */}
-    {/* <Manufacturer /> */}
-    {/* <FoodMart /> */}
+const Layout = (): JSX.Element => (
+  <div className={styles.container}>
+    <CustomNavbar />
+    <div>
+      <Outlet />
+    </div>
   </div>
 );
 
-export default HomePage;
+export default Layout;
