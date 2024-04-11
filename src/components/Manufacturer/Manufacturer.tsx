@@ -36,19 +36,17 @@ const Manufacturer = (): JSX.Element => {
             <tr>
               <th>#</th>
               <th>Manufacturer's Name</th>
-              <th>Product Count</th>
               <th>Actions</th>
             </tr>
           </thead>
           <tbody>
             {manufacturers.map((manufacturer, index) => {
-              const { name, products, id } = manufacturer;
+              const { name, id } = manufacturer;
 
               return (
                 <tr key={id}>
                   <td>{index + 1}</td>
                   <td>{name}</td>
-                  <td>{products.length}</td>
                   <td className={styles.actions}>
                     <button>
                       <EditIcon className={styles.icon} />

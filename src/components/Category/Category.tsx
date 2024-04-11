@@ -4,13 +4,14 @@ import { useEffect } from 'react'; // Import useEffect
 import { useDispatch, useSelector } from 'react-redux';
 import type { TableColumnsType, TableProps } from 'antd';
 import { Space, Table } from 'antd';
+import { AppDispatch } from 'redux/store/store';
+import { CategoryType } from 'types/categoryTypes';
 
-import { ReactComponent as DeleteIcon } from '../../assets/deleteIcon.svg';
-import { ReactComponent as EditIcon } from '../../assets/editIcon.svg';
+import { ReactComponent as DeleteIcon } from 'assets/deleteIcon.svg';
+import { ReactComponent as EditIcon } from 'assets/editIcon.svg';
+
 import { selectAllCategories } from '../../redux/selectors/categorySelector';
 import { deleteCategory, fetchCategories } from '../../redux/slices/categorySlice';
-import { AppDispatch } from '../../redux/store/store';
-import { CategoryType } from '../../types/categoryTypes';
 
 // import CreateCategory from './CreateUpdateCategoey/CreateUpdateCategoey';
 import styles from './Category.module.scss';

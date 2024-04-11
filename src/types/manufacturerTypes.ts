@@ -5,8 +5,6 @@ export type ManufacturerParams = {
 export type Manufacturer = {
   id: number;
   name: string;
-  products: string[];
-  createdAt: Date;
 };
 
 export type ManufacturerState = {

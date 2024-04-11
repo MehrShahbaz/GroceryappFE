@@ -1,5 +1,7 @@
-const urls = {
-  home: '',
+export const urls = {
+  home: '/',
+  products: 'products',
+  categories: '/categories',
+  foodMart: '/foodMart',
+  manufacturer: '/manufacturer',
 };
-
-export default urls;

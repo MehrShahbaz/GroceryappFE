@@ -3,15 +3,15 @@ import { Review } from '../types/productTypes';
 
 export const func1 = (): null => null;
 
-export const calculateReview = (data: Review[]): string => {
+export const calculateReview = (data: Review[]): number => {
   if (data.length) {
     const sum = data.reduce((accumulator, { rating }) => accumulator + rating, 0);
     const average = sum / data.length;
 
-    return `${average.toFixed(2)} / 5`;
+    return average;
   }
 
-  return 'None';
+  return 0;
 };
 
 export type SelectType = {
