@@ -5,6 +5,8 @@ import { FieldProps } from 'formik';
 import { selectAllFoodMarts } from '../../../redux/selectors/foodMartSelector';
 import { FoodMart } from '../../../types/foodMartTypes';
 
+import styles from '../Store.module.scss';
+
 interface SelectStoreProps extends FieldProps {
   options: FoodMart[];
 }
@@ -14,6 +16,7 @@ const SelectFoodMart: React.FC<SelectStoreProps> = ({ field, form }) => {
 
   return (
     <div>
+      <div className={styles.heading}>Food Mart</div>
       <Select
         {...field}
         options={foodMart}

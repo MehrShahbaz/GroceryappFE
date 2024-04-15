@@ -45,6 +45,13 @@ export type ProductParams = {
   price: number;
 };
 
+export type ProductState = {
+  totalCount: number;
+  products: Product[];
+  loading: boolean;
+  error: string | null;
+};
+
 export type Product = {
   id: number;
   name: string;
@@ -56,26 +63,21 @@ export type Product = {
 };
 
 export type ProductIntialType = {
+  id?: number;
   name: string;
-  categories: Category | null;
-  manufacturer: Manufacturer | null;
-  foodMart: FoodMart | null;
-  price: number;
-};
-
-export type ProductState = {
-  totalCount: number;
-  products: Product[];
-  loading: boolean;
-  error: string | null;
+  manufacturer?: Manufacturer;
+  food_mart?: FoodMart;
+  categories?: Category[];
+  prices: PriceType[];
 };
 
 export const PRODUCY_INTIAL_VALUES: ProductIntialType = {
+  id: undefined,
   name: '',
-  categories: null,
-  manufacturer: null,
-  foodMart: null,
-  price: 0,
+  categories: undefined,
+  manufacturer: undefined,
+  food_mart: undefined,
+  prices: [{ amount: 0 }],
 };
 
 export type FetchProductsParams = {
