@@ -5,6 +5,8 @@ import { FieldProps } from 'formik';
 import { selectAllManufacturers } from '../../../redux/selectors/manufacturerSelector';
 import { Manufacturer } from '../../../types/manufacturerTypes';
 
+import styles from '../Manufacturer.module.scss';
+
 interface SelectManufacturerProps extends FieldProps {
   options: Manufacturer[];
 }
@@ -14,6 +16,7 @@ const SelectManufacturer: React.FC<SelectManufacturerProps> = ({ field, form }) 
 
   return (
     <div>
+      <div className={styles.heading}>Manufacturer</div>
       <Select
         {...field}
         options={manufacturer}

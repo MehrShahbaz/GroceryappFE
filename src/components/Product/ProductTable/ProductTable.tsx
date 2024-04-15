@@ -13,11 +13,12 @@ import styles from './ProductTable.module.scss';
 type ProductCardProps = {
   products: Product[];
   handleDelete: (id: number) => void;
+  handleEdit: (id: number) => void;
   perPage: number;
   currentPage: number;
 };
 
-const ProductTable = ({ products, handleDelete, perPage, currentPage }: ProductCardProps): JSX.Element => {
+const ProductTable = ({ products, handleDelete, perPage, currentPage, handleEdit }: ProductCardProps): JSX.Element => {
   const offset = useMemo(() => (currentPage - 1) * perPage, [currentPage, perPage]);
 
   return (
@@ -66,7 +67,7 @@ const ProductTable = ({ products, handleDelete, perPage, currentPage }: ProductC
                 </td>
                 <td>
                   <div className={styles.actions}>
-                    <button>
+                    <button onClick={() => handleEdit(id)}>
                       <EditIcon className={styles.icon} />
                     </button>
                     <button onClick={() => handleDelete(id)}>

@@ -1,6 +1,7 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
+import { Product as ProductType } from 'types/productTypes';
 
 import { productCount, selectAllProducts } from '../../redux/selectors/productSelector';
 import { deleteProduct, fetchProducts } from '../../redux/slices/productSlice';
@@ -15,7 +16,7 @@ import ProductTable from './ProductTable/ProductTable';
 
 import styles from './Product.module.scss';
 
-const INITIAL_PER_PAGE = 25;
+const INITIAL_PER_PAGE = 5;
 const Product = (): JSX.Element => {
   const products = useSelector(selectAllProducts);
   const totalCount = useSelector(productCount);
@@ -23,6 +24,7 @@ const Product = (): JSX.Element => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchTerm, setSearchTerm] = useState<string>('');
   const [perPage, setPerPage] = useState(INITIAL_PER_PAGE);
+  const [product, setProduct] = useState<ProductType | undefined>(undefined);
   const dispatch = useDispatch<AppDispatch>();
 
   useEffect(() => {
@@ -31,6 +33,12 @@ const Product = (): JSX.Element => {
 
   const handleDelete = (id: number): void => {
     dispatch(deleteProduct(id));
+  };
+  const handleEdit = (id: number): void => {
+    const data = products.find((prod) => prod.id === id);
+
+    setProduct(data);
+    setIsShow(true);
   };
   const handlePageChange = useCallback(
     (page: number) => {
@@ -69,13 +77,28 @@ const Product = (): JSX.Element => {
           <PerPage current={perPage} setCurrent={setPerPage} />
         </div>
       </div>
-      <ProductTable products={products} handleDelete={handleDelete} perPage={perPage} currentPage={currentPage} />
+      <ProductTable
+        products={products}
+        handleDelete={handleDelete}
+        handleEdit={handleEdit}
+        perPage={perPage}
+        currentPage={currentPage}
+      />
       <Pagination
         currentPage={currentPage}
         setCurrentPage={handlePageChange}
         totalPages={Math.floor(totalCount / perPage)}
       />
-      {isShow && <CreateProduct isShow={isShow} setIsShow={(willShow) => setIsShow(willShow)} />}
+      {isShow && (
+        <CreateProduct
+          product={product}
+          isShow={isShow}
+          setIsShow={(willShow) => {
+            setIsShow(willShow);
+            setProduct(undefined);
+          }}
+        />
+      )}
     </div>
   );
 };
