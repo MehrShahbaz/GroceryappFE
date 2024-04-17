@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
@@ -12,8 +11,12 @@ import Modal from '../../_shared/Modal/Modal';
 
 import styles from './CreateUpdateCategoey.module.scss';
 
-const CreateCategory = (): JSX.Element => {
-  const [isShow, setIsShow] = useState(false);
+type CreateCategoryProps = {
+  isShow: boolean;
+  setIsShow: (value: boolean) => void;
+};
+
+const CreateCategory = ({ isShow, setIsShow }: CreateCategoryProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const handleSubmit = (values: CreateCategoryType): void => {
     dispatch(createCategory(values)).then((_res) => onHide());

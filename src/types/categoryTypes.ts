@@ -2,15 +2,10 @@ export type CategoryParams = {
   name: string;
 };
 
-type CategoryProduct = {
-  id: number;
-  name: string;
-};
-
 export type CategoryType = {
   id: number;
   name: string;
-  products: CategoryProduct[];
+  count: number;
   createdAt: Date;
 };
 

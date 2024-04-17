@@ -4,7 +4,7 @@ import styles from './PerPage.module.scss';
 
 type PerPageProps = {
   current: number;
-  setCurrent: (value: number) => void;
+  onChange: (value: number) => void;
 };
 
 const options = [
@@ -14,13 +14,13 @@ const options = [
   { value: 20, label: 20 },
   { value: 25, label: 25 },
 ];
-const PerPage = ({ current, setCurrent }: PerPageProps): JSX.Element => (
+const PerPage = ({ current, onChange }: PerPageProps): JSX.Element => (
   <div className={styles.container}>
     <div className={styles.selectContainer}>
       <ReactSelect
         options={options}
         value={{ value: current, label: current }}
-        onChange={(value) => setCurrent(value?.label || 25)}
+        onChange={(value) => onChange(value?.label || 5)}
         placeholder="Per Page"
       />
     </div>

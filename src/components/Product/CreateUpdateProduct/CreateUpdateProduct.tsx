@@ -3,7 +3,7 @@ import { useEffect, useMemo } from 'react';
 import { Button } from 'react-bootstrap';
 // import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
-import { Field, FieldArray, Form, Formik } from 'formik';
+import { Field, Form, Formik } from 'formik';
 
 import InputField from 'components/_shared/InputField/InputField';
 import SelectFoodMart from 'components/FoodMart/SelectFoodMart/SelectFoodMart';
@@ -55,7 +55,6 @@ const CreateUpdateProduct = ({ isShow, setIsShow, product }: CreateProductProps)
               <Field type="text" name="name" placeholder="Name" component={InputField} heading="Name" />
               <ProductPrices isOld={Boolean(product)} />
 
-              <FieldArray name="categories" />
               {/* <Field name="categories" component={SelectCategory} /> */}
               <Field name="manufacturer" component={SelectManufacturer} />
               <Field name="food_mart" component={SelectFoodMart} />

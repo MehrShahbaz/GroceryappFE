@@ -84,4 +84,6 @@ export type FetchProductsParams = {
   page?: number;
   perPage?: number;
   search?: string;
+  categories?: number[];
+  foodMarts?: number[];
 };

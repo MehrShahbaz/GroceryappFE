@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { errorNotification, showNotification } from 'helper/helper';
 
 import {
   createCategoryService,
@@ -67,19 +69,23 @@ export const fetchCategories = createAsyncThunk('category/fetchCategories', asyn
     const response = await getAllCategoriesService(params);
 
     return response.data;
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    errorNotification(err);
   }
 });
 
 export const createCategory = createAsyncThunk('category/createCategory', async (params: CategoryParams) => {
   try {
-    const response = await createCategoryService(params);
+    const response = await createCategoryService(params).then((res) => {
+      showNotification({ title: 'Created', message: 'Category Created successfully', type: 'success' });
+
+      return res;
+    });
     const data: CategoryType = response.data;
 
     return data;
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    errorNotification(err);
   }
 });
 
@@ -96,19 +102,21 @@ export const updateCategory = createAsyncThunk(
       const data: CategoryType = response.data;
 
       return data;
-    } catch (err) {
-      console.log(err);
+    } catch (err: any) {
+      errorNotification(err);
     }
   }
 );
 
 export const deleteCategory = createAsyncThunk('category/delete', async (id: number) => {
   try {
-    await deleteCategoryService(id);
+    await deleteCategoryService(id).then(() => {
+      showNotification({ title: 'Deleted', message: 'Category Deleted', type: 'danger' });
+    });
 
     return id;
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    errorNotification(err);
   }
 });
 
