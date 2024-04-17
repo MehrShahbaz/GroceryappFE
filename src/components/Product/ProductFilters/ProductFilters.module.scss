@@ -1,0 +1,17 @@
+.switchContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.checkboxContainer {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}

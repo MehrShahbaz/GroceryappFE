@@ -31,16 +31,16 @@
   flex-wrap: nowrap;
   overflow: hidden;
 
-  li {
-    margin-right: 5px;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    max-width: 7rem; // Adjust the max-width as needed
-  }
+  // li {
+  //   margin-right: 5px;
+  //   white-space: nowrap;
+  //   overflow: hidden;
+  //   text-overflow: ellipsis;
+  //   max-width: 7rem; // Adjust the max-width as needed
+  // }
 
-  .lastCategory {
-    max-width: none;
-    text-overflow: ellipsis;
-  }
+  // .lastCategory {
+  //   max-width: none;
+  //   text-overflow: ellipsis;
+  // }
 }

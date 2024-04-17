@@ -2,22 +2,35 @@
   .headingContainer {
     display: flex;
     justify-content: space-between;
+    button {
+      width: fit-content;
+      margin-bottom: 10px;
+    }
+  }
+
+  .tableContainer {
+    height: 35rem;
+    overflow-y: scroll;
+    .actions {
+      display: flex;
+      gap: 15px;
+
+      .icon {
+        width: 20px;
+        height: 20px;
+      }
+
+      button {
+        border: none;
+        background: transparent;
+        padding: 0;
+      }
+    }
+    margin-bottom: 1rem;
   }
 }
 
-.actions {
-  display: flex;
-  justify-content: center;
-  gap: 15px;
-
-  .icon {
-    width: 20px;
-    height: 20px;
-  }
-
-  button {
-    border: none;
-    background: transparent;
-    padding: 0;
-  }
+.heading {
+  margin-bottom: 5px; /* Add margin below the heading */
+  font-weight: bold; /* Make the heading bold */
 }

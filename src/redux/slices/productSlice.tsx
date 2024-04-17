@@ -1,4 +1,6 @@
+/* eslint-disable @typescript-eslint/no-explicit-any */
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { errorNotification, showNotification } from 'helper/helper';
 
 import {
   createProductService,
@@ -6,7 +8,13 @@ import {
   getAllProductssService,
   updateProductService,
 } from '../../services/productService';
-import { CreateProductType, FetchProductsParams, Product, ProductParams, ProductState } from '../../types/productTypes';
+import {
+  CreateProductParams,
+  FetchProductsParams,
+  Product,
+  ProductParams,
+  ProductState,
+} from '../../types/productTypes';
 
 const initialState: ProductState = {
   products: [],
@@ -69,14 +77,18 @@ export const fetchProducts = createAsyncThunk('Product/fetchProductss', async (p
     const response = await getAllProductssService(params);
 
     return response.data;
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    errorNotification(err, 5000);
   }
 });
 
-export const createProduct = createAsyncThunk('Product/createProduct', async (params: CreateProductType) => {
+export const createProduct = createAsyncThunk('Product/createProduct', async (params: CreateProductParams) => {
   try {
-    const response = await createProductService(params);
+    const response = await createProductService(params).then((res) => {
+      showNotification({ title: 'Product Created', message: '', type: 'success' });
+
+      return res;
+    });
     const data: Product = response.data;
 
     return data;

@@ -18,8 +18,10 @@ export const foodMartURLS = {
 };
 
 export const productURLS = {
-  getAllProducts: ({ page, perPage, search }: FetchProductsParams) =>
-    `/products?page=${page}&per_page=${perPage}&search=${encodeURIComponent(search ?? '')}`,
+  getAllProducts: ({ page, perPage, search, categories, foodMarts }: FetchProductsParams) =>
+    `/products?page=${page ?? 1}&per_page=${perPage ?? 5}&search=${encodeURIComponent(search ?? '')}&category_ids=${
+      categories ?? []
+    }&food_marts_ids=${foodMarts ?? ''}`,
   createProduct: '/products',
   updateProduct: (id: number) => `/products/${id}`,
 };

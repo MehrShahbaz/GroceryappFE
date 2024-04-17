@@ -1,42 +1,25 @@
 import { ChangeEvent } from 'react';
-import { Button, Form, FormControl } from 'react-bootstrap';
+import { debounce } from 'lodash';
 
 import styles from './SearchField.module.scss';
 
 type SearchFieldProps = {
   placeholder: string;
-  onSearch: () => void;
-  searchTerm: string;
-  setSearchTerm: (value: string) => void;
+  onSearch: (value: string) => void;
 };
 
-const SearchField = ({ placeholder, onSearch, searchTerm, setSearchTerm }: SearchFieldProps): JSX.Element => {
-  const handleChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    setSearchTerm(event.target.value);
+const SearchField = ({ placeholder, onSearch }: SearchFieldProps): JSX.Element => {
+  const handleDeBounceChange = (event: ChangeEvent<HTMLInputElement>): void => {
+    const data = event.target.value;
+
+    onSearch(data);
   };
-  const handleSubmit = (event: React.FormEvent<HTMLFormElement>): void => {
-    event.preventDefault();
-    onSearch();
-  };
-  const handleInputChange = (event: ChangeEvent<HTMLInputElement>): void => {
-    handleChange(event);
-  };
+  const debouncedOnChange = debounce(handleDeBounceChange, 800);
 
   return (
-    <Form onSubmit={handleSubmit}>
-      <div className={styles.container}>
-        <FormControl
-          type="text"
-          placeholder={placeholder}
-          className="mr-sm-2"
-          value={searchTerm}
-          onChange={handleInputChange}
-        />
-        <Button type="submit" variant="outline-success">
-          Search
-        </Button>
-      </div>
-    </Form>
+    <div className={styles.container}>
+      <input type="text" onChange={debouncedOnChange} placeholder={placeholder} className={styles.input} />{' '}
+    </div>
   );
 };
 
