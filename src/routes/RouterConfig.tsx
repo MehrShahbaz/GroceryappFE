@@ -6,6 +6,7 @@ import Categories from 'components/Category/Category';
 import FoodMart from 'components/FoodMart/FoodMart';
 import Manufacturer from 'components/Manufacturer/Manufacturer';
 import Product from 'components/Product/Product';
+import ProductDetails from 'components/ProductDetails/ProductDetails';
 
 import { urls } from './urls';
 
@@ -14,6 +15,7 @@ const RouterConfig = (): JSX.Element => (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route path={urls.home} element={<Product />} />
+        <Route path={`${urls.products}/:productId`} element={<ProductDetails />} />{' '}
         <Route path={urls.products} element={<Product />} />
         <Route path={urls.categories} element={<Categories />} />
         <Route path={urls.foodMart} element={<FoodMart />} />

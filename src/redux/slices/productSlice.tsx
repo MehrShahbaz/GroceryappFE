@@ -6,6 +6,7 @@ import {
   createProductService,
   deleteProductService,
   getAllProductssService,
+  getProductService,
   updateProductService,
 } from '../../services/productService';
 import {
@@ -17,6 +18,7 @@ import {
 } from '../../types/productTypes';
 
 const initialState: ProductState = {
+  currentProduct: undefined,
   products: [],
   loading: false,
   error: null,
@@ -39,6 +41,32 @@ const ProductSlice = createSlice({
       }
     });
     builder.addCase(fetchProducts.rejected, (state, _action) => {
+      state.loading = false;
+    });
+    builder.addCase(getProduct.pending, (state, _action) => {
+      state.loading = true;
+    });
+    builder.addCase(getProduct.fulfilled, (state, action) => {
+      state.loading = false;
+
+      if (action.payload) {
+        state.currentProduct = action.payload;
+      }
+    });
+    builder.addCase(getProduct.rejected, (state, _action) => {
+      state.loading = false;
+    });
+    builder.addCase(updateProduct.pending, (state, _action) => {
+      state.loading = true;
+    });
+    builder.addCase(updateProduct.fulfilled, (state, action) => {
+      state.loading = false;
+
+      if (action.payload) {
+        state.currentProduct = action.payload;
+      }
+    });
+    builder.addCase(updateProduct.rejected, (state, _action) => {
       state.loading = false;
     });
     builder.addCase(createProduct.pending, (state, _action) => {
@@ -82,6 +110,16 @@ export const fetchProducts = createAsyncThunk('Product/fetchProductss', async (p
   }
 });
 
+export const getProduct = createAsyncThunk('Product/getProduct', async (id: string) => {
+  try {
+    const response = await getProductService(id);
+
+    return response.data;
+  } catch (err: any) {
+    errorNotification(err, 5000);
+  }
+});
+
 export const createProduct = createAsyncThunk('Product/createProduct', async (params: CreateProductParams) => {
   try {
     const response = await createProductService(params).then((res) => {
@@ -92,34 +130,44 @@ export const createProduct = createAsyncThunk('Product/createProduct', async (pa
     const data: Product = response.data;
 
     return data;
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    errorNotification(err, 5000);
   }
 });
 
 type UpdateProductType = {
   params: ProductParams;
-  id: number;
+  id: number | string;
+  successMessage?: string;
 };
 
-export const updateProduct = createAsyncThunk('Product/updateProduct', async ({ params, id }: UpdateProductType) => {
-  try {
-    const response = await updateProductService(params, id);
-    const data: Product = response.data;
+export const updateProduct = createAsyncThunk(
+  'Product/updateProduct',
+  async ({ params, id, successMessage }: UpdateProductType) => {
+    try {
+      const response = await updateProductService(params, id).then((res) => {
+        showNotification({ title: 'Product Updated', message: successMessage ?? '', type: 'success' });
 
-    return data;
-  } catch (err) {
-    console.log(err);
+        return res;
+      });
+      const data: Product = response.data;
+
+      console.log(data);
+
+      return data;
+    } catch (err: any) {
+      errorNotification(err, 5000);
+    }
   }
-});
+);
 
 export const deleteProduct = createAsyncThunk('Product/deleteProduct', async (id: number) => {
   try {
     await deleteProductService(id);
 
     return id;
-  } catch (err) {
-    console.log(err);
+  } catch (err: any) {
+    errorNotification(err, 5000);
   }
 });
 

@@ -3,41 +3,36 @@ type Manufacturer = {
   name: string;
 };
 
-type FoodMart = {
+export type FoodMartType = {
   id: number;
   name: string;
   location: string;
   note: string;
 };
 
-type Category = {
+export type CategoryType = {
   id: number;
   name: string;
 };
 
-type Price = {
-  amount: string;
-};
-
-export type Review = {
+export type ReviewType = {
+  id: number;
   content: string | undefined;
   rating: number;
   title: string | undefined;
 };
 
-type PriceType = {
+export type PriceType = {
   amount: number;
+  created_at?: number;
 };
 
 export type ProductParams = {
-  id: string;
-  name: string;
-  manufacturer: string;
-  category: string;
-  price: number;
+  prices_attributes?: PriceType[];
 };
 
 export type ProductState = {
+  currentProduct: Product | undefined;
   totalCount: number;
   products: Product[];
   loading: boolean;
@@ -48,18 +43,18 @@ export type Product = {
   id: number;
   name: string;
   manufacturer: Manufacturer;
-  food_mart: FoodMart;
-  categories: Category[];
-  prices: Price[];
-  reviews: Review[];
+  food_mart: FoodMartType;
+  categories: CategoryType[];
+  prices: PriceType[];
+  reviews: ReviewType[];
 };
 
 export type ProductIntialType = {
   id?: number;
   name: string;
   manufacturer?: Manufacturer;
-  food_mart?: FoodMart;
-  categories?: Category[];
+  food_mart?: FoodMartType;
+  categories?: CategoryType[];
   prices: PriceType[];
 };
 
