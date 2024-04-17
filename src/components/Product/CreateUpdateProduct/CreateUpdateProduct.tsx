@@ -1,28 +1,24 @@
 // CreateProduct.tsx
 import { useEffect, useMemo } from 'react';
 import { Button } from 'react-bootstrap';
-// import { Button } from 'react-bootstrap';
 import { useDispatch } from 'react-redux';
 import { Field, Form, Formik } from 'formik';
 
 import InputField from 'components/_shared/InputField/InputField';
+import SelectCategory from 'components/Category/SelectCategory/SelectCategory';
 import SelectFoodMart from 'components/FoodMart/SelectFoodMart/SelectFoodMart';
 import SelectManufacturer from 'components/Manufacturer/SelectManufacturer/SelectManufacturer';
 
 import { fetchCategories } from '../../../redux/slices/categorySlice';
 import { fetchFoodMart } from '../../../redux/slices/foodMartSlice';
 import { fetchManufacturers } from '../../../redux/slices/manufacturerSlice';
-// import { createProduct } from '../../../redux/slices/productSlice';
+import { createProduct, fetchProducts } from '../../../redux/slices/productSlice';
 import { AppDispatch } from '../../../redux/store/store';
-import { Product, ProductIntialType, PRODUCY_INTIAL_VALUES } from '../../../types/productTypes';
-// import InputField from '../../_shared/InputField/InputField';
+import { CreateProductParams, Product, ProductIntialType, PRODUCY_INTIAL_VALUES } from '../../../types/productTypes';
 import Modal from '../../_shared/Modal/Modal';
 
 import ProductPrices from './ProductPrices/ProductPrices';
 
-// import SelectCategory from '../../Category/SelectCategory/SelectCategory';
-// import SelectFoodMart from '../../FoodMart/SelectFoodMart/SelectFoodMart';
-// import SelectManufacturer from '../../Manufacturer/SelectManufacturer/SelectManufacturer';
 import styles from './CreateUpdateProduct.module.scss';
 
 type CreateProductProps = {
@@ -42,7 +38,18 @@ const CreateUpdateProduct = ({ isShow, setIsShow, product }: CreateProductProps)
 
   const modalHeading = useMemo(() => `${product ? 'Edit' : 'Add'} Product`, [product]);
   const handleSubmit = (values: ProductIntialType | Product): void => {
-    console.log(values);
+    const data: CreateProductParams = {
+      food_mart_id: values.food_mart?.id,
+      manufacturer_id: values.manufacturer?.id,
+      name: values.name,
+      prices_attributes: [{ amount: values.prices[0].amount }],
+      category_ids: values.categories?.map((category) => category.id),
+    };
+
+    dispatch(createProduct(data)).then(() => {
+      setIsShow(false);
+      dispatch(fetchProducts({}));
+    });
   };
   const onHide = (): void => setIsShow(false);
 
@@ -55,7 +62,7 @@ const CreateUpdateProduct = ({ isShow, setIsShow, product }: CreateProductProps)
               <Field type="text" name="name" placeholder="Name" component={InputField} heading="Name" />
               <ProductPrices isOld={Boolean(product)} />
 
-              {/* <Field name="categories" component={SelectCategory} /> */}
+              <Field name="categories" component={SelectCategory} />
               <Field name="manufacturer" component={SelectManufacturer} />
               <Field name="food_mart" component={SelectFoodMart} />
               <div className={styles.buttonContainer}>

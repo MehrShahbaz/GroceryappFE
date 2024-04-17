@@ -29,14 +29,6 @@ type PriceType = {
   amount: number;
 };
 
-export type CreateProductType = {
-  name: string;
-  manufacturer_id: number | undefined;
-  category_ids?: number[] | undefined;
-  food_mart_id: number | undefined;
-  prices_attributes: PriceType[];
-};
-
 export type ProductParams = {
   id: string;
   name: string;
@@ -86,4 +78,17 @@ export type FetchProductsParams = {
   search?: string;
   categories?: number[];
   foodMarts?: number[];
+};
+
+export type CreateProductParams = {
+  food_mart_id?: number;
+  manufacturer_id?: number;
+  name: string;
+  prices_attributes?: [{ amount?: number | string }];
+  category_ids?: number[];
+};
+
+export type HandleOnFilterProps = {
+  productsPerPage?: number;
+  searchProductTerm?: string;
 };

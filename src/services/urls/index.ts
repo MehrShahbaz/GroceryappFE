@@ -19,7 +19,7 @@ export const foodMartURLS = {
 
 export const productURLS = {
   getAllProducts: ({ page, perPage, search, categories, foodMarts }: FetchProductsParams) =>
-    `/products?page=${page}&per_page=${perPage}&search=${encodeURIComponent(search ?? '')}&category_ids=${
+    `/products?page=${page ?? 1}&per_page=${perPage ?? 5}&search=${encodeURIComponent(search ?? '')}&category_ids=${
       categories ?? []
     }&food_marts_ids=${foodMarts ?? ''}`,
   createProduct: '/products',

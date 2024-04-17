@@ -1,23 +1,24 @@
 import { useMemo } from 'react';
 import { Table } from 'react-bootstrap';
+import { useSelector } from 'react-redux';
 
 import StarRating from 'components/_shared/ReviewStars/ReviewStars';
 
 // import { ReactComponent as DeleteIcon } from '../../../assets/deleteIcon.svg';
 // import { ReactComponent as EditIcon } from '../../../assets/editIcon.svg';
 import { calculateReview } from '../../../helper/helper';
-import { Product } from '../../../types/productTypes';
+import { selectAllProducts } from '../../../redux/selectors/productSelector';
 
 import styles from './ProductTable.module.scss';
 
 type ProductTableProps = {
-  products: Product[];
   perPage: number;
   currentPage: number;
 };
 
-const ProductTable = ({ products, perPage, currentPage }: ProductTableProps): JSX.Element => {
+const ProductTable = ({ perPage, currentPage }: ProductTableProps): JSX.Element => {
   const offset = useMemo(() => (currentPage - 1) * perPage, [currentPage, perPage]);
+  const products = useSelector(selectAllProducts);
 
   return (
     <div className={styles.container}>
@@ -49,7 +50,6 @@ const ProductTable = ({ products, perPage, currentPage }: ProductTableProps): JS
                   </a>
                 </td>
                 <td>
-                  {' '}
                   <StarRating rating={calculateReview(reviews)} />
                 </td>
                 <td>

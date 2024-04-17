@@ -1,11 +1,11 @@
 import { useCallback, useEffect, useState } from 'react';
 import { Button } from 'react-bootstrap';
 import { useDispatch, useSelector } from 'react-redux';
-import { Product as ProductType } from 'types/productTypes';
+import { HandleOnFilterProps, Product as ProductType } from 'types/productTypes';
 
 import SearchField from 'components/_shared/SearchField/SearchField';
 
-import { productCount, selectAllProducts } from '../../redux/selectors/productSelector';
+import { productCount } from '../../redux/selectors/productSelector';
 import { fetchProducts } from '../../redux/slices/productSlice';
 import { AppDispatch } from '../../redux/store/store';
 import Pagination from '../_shared/Pagination/Pagination';
@@ -19,7 +19,6 @@ import styles from './Product.module.scss';
 
 const INITIAL_PER_PAGE = 5;
 const Product = (): JSX.Element => {
-  const products = useSelector(selectAllProducts);
   const totalCount = useSelector(productCount);
   const [isShow, setIsShow] = useState(false);
   const dispatch = useDispatch<AppDispatch>();
@@ -27,7 +26,6 @@ const Product = (): JSX.Element => {
   const [perPage, setPerPage] = useState(INITIAL_PER_PAGE);
   const [product, setProduct] = useState<ProductType | undefined>(undefined);
   const [isFilterModalOpen, setIsFilterModalOpen] = useState(false);
-  const [selectedCategories, setSelectedCategories] = useState<number[]>([]);
   const [selectedFoodMart, setSelectedFoodMart] = useState<number[]>([]);
   const [searchTerm, setSearchTerm] = useState<string>('');
 
@@ -35,32 +33,26 @@ const Product = (): JSX.Element => {
     dispatch(fetchProducts({ page: 1, perPage: INITIAL_PER_PAGE }));
   }, [dispatch]);
 
-  // const handleDelete = (id: number): void => {
-  //   dispatch(deleteProduct(id));
-  // };
-  // const handleEdit = (id: number): void => {
-  //   const data = products.find((prod) => prod.id === id);
-
-  //   setProduct(data);
-  //   setIsShow(true);
-  // };
   const handleOnFilter = useCallback(
-    (value?: number) => {
-      if (value) {
-        setPerPage(value);
+    ({ productsPerPage, searchProductTerm }: HandleOnFilterProps) => {
+      if (productsPerPage) {
+        setPerPage(productsPerPage);
+      }
+
+      if (searchProductTerm) {
+        setSearchTerm(searchProductTerm);
       }
 
       dispatch(
         fetchProducts({
           page: currentPage,
-          perPage: value ?? perPage,
-          categories: selectedCategories,
+          perPage: productsPerPage ?? perPage,
           foodMarts: selectedFoodMart,
-          search: searchTerm,
+          search: searchProductTerm ?? searchTerm,
         })
       );
     },
-    [currentPage, dispatch, perPage, searchTerm, selectedCategories, selectedFoodMart]
+    [currentPage, dispatch, perPage, searchTerm, selectedFoodMart]
   );
   const handlePageChange = useCallback(
     (page: number) => {
@@ -84,13 +76,12 @@ const Product = (): JSX.Element => {
         fetchProducts({
           page: data,
           perPage: perPage,
-          categories: selectedCategories,
           foodMarts: selectedFoodMart,
           search: searchTerm,
         })
       );
     },
-    [currentPage, dispatch, perPage, searchTerm, selectedCategories, selectedFoodMart, totalCount]
+    [currentPage, dispatch, perPage, searchTerm, selectedFoodMart, totalCount]
   );
 
   return (
@@ -104,31 +95,29 @@ const Product = (): JSX.Element => {
       <div className={styles.searchContainer}>
         <div>
           <SearchField
-            placeholder="Search Products"
-            onSearch={handleOnFilter}
-            searchTerm={searchTerm}
-            setSearchTerm={(value) => setSearchTerm(value)}
+            placeholder="Search by Products Name or Category Name"
+            onSearch={(value) => handleOnFilter({ searchProductTerm: value })}
           />
         </div>
         <div className={styles.filterContainer}>
           <Button variant="outline-success" onClick={() => setIsFilterModalOpen(true)}>
             Filters
           </Button>
-          <PerPage current={perPage} onChange={handleOnFilter} />
+          <PerPage current={perPage} onChange={(value) => handleOnFilter({ productsPerPage: value })} />
         </div>
       </div>
-      <ProductTable
-        products={products}
-        // handleDelete={handleDelete}
-        // handleEdit={handleEdit}
-        perPage={perPage}
-        currentPage={currentPage}
-      />
-      <Pagination
-        currentPage={currentPage}
-        setCurrentPage={handlePageChange}
-        totalPages={Math.floor(totalCount / perPage)}
-      />
+      {totalCount === 0 ? (
+        <div>No Products</div>
+      ) : (
+        <>
+          <ProductTable perPage={perPage} currentPage={currentPage} />
+          <Pagination
+            currentPage={currentPage}
+            setCurrentPage={handlePageChange}
+            totalPages={Math.floor(totalCount / perPage)}
+          />
+        </>
+      )}
       {isShow && (
         <CreateProduct
           product={product}
@@ -143,15 +132,13 @@ const Product = (): JSX.Element => {
         <ProductFilters
           isShow={isFilterModalOpen}
           setIsShow={(willShow) => setIsFilterModalOpen(willShow)}
-          selectedCategories={selectedCategories}
-          setSelectedCategories={setSelectedCategories}
           selectedFoodMart={selectedFoodMart}
           setSelectedFoodMart={setSelectedFoodMart}
           onSubmit={() => {
-            handleOnFilter();
+            handleOnFilter({});
             setIsFilterModalOpen(false);
           }}
-          onReset={() => setSelectedCategories([])}
+          onReset={() => setSelectedFoodMart([])}
         />
       )}
     </div>
