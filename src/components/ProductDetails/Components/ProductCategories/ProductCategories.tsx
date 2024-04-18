@@ -18,7 +18,7 @@ const ProductCategories = ({ categories }: ProductCategoriesProps): JSX.Element 
       <div className={styles.headingContainer}>
         <h4>Categories</h4>
         <Button variant="outline-success" onClick={() => setIsShow(true)}>
-          {categories.length ? 'Change' : 'Add'} Category
+          {categories.length ? 'Change' : 'Add'} Categories
         </Button>
       </div>
       {categories.length ? (

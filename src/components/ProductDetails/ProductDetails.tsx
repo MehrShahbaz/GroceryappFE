@@ -6,6 +6,7 @@ import { AppDispatch } from 'redux/store/store';
 import { selectedProduct } from '../../redux/selectors/productSelector';
 import { getProduct } from '../../redux/slices/productSlice';
 
+import ProductName from './Components/ProductName/ProductName';
 import { ProductCategories, ProductFoodMart, ProductManufacturer, ProductPrices, ProductReviews } from './Components';
 
 import styles from './ProductDetails.module.scss';
@@ -29,7 +30,7 @@ const ProductDetails = (): JSX.Element => {
 
   return (
     <div className={styles.container}>
-      <h1>{name}</h1>
+      <ProductName name={name} />
       <ProductManufacturer manufacturer={manufacturer} />
       <ProductFoodMart foodMart={foodMart} />
       <ProductCategories categories={categories} />

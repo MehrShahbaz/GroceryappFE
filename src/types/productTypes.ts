@@ -28,9 +28,11 @@ export type PriceType = {
 };
 
 export type ProductParams = {
+  name?: string;
   prices_attributes?: PriceType[];
   reviews_attributes?: ReviewType[];
   category_ids?: number[];
+  manufacturer_id?: number;
 };
 
 export type ProductState = {

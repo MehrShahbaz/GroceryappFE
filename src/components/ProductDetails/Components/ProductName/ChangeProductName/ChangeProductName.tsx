@@ -4,31 +4,31 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 import { AppDispatch } from 'redux/store/store';
-import { ProductPriceSchema } from 'schema/storeSchema';
+import { ProductNameSchema } from 'schema/storeSchema';
 
 import InputField from 'components/_shared/InputField/InputField';
 import Modal from 'components/_shared/Modal/Modal';
 
 import { updateProduct } from '../../../../../redux/slices/productSlice';
 
-import styles from './AddPrice.module.scss';
+import styles from '../ProductName.module.scss';
 
-type AddPriceProps = {
+type ChangeProductNameProps = {
   isShow: boolean;
   setIsShow: (flag: boolean) => void;
+  name: string;
 };
 
-const INTIAL_VALUES = { price: 0 };
-const AddPrice = ({ isShow, setIsShow }: AddPriceProps): JSX.Element => {
+const ChangeProductName = ({ isShow, setIsShow, name }: ChangeProductNameProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const { productId } = useParams<{ productId: string }>();
   const handleSubmit = useCallback(
-    (value: number) => {
+    (value: string) => {
       if (productId) {
         const data = {
-          params: { prices_attributes: [{ amount: value }] },
+          params: { name: value },
           id: productId,
-          successMessage: 'Price Added successfully',
+          successMessage: 'Name Changed successfully',
         };
 
         dispatch(updateProduct(data))
@@ -41,23 +41,22 @@ const AddPrice = ({ isShow, setIsShow }: AddPriceProps): JSX.Element => {
   const onHide = (): void => setIsShow(false);
 
   return (
-    <Modal isShow={isShow} onHide={onHide} heading="Add Price">
+    <Modal isShow={isShow} onHide={onHide} heading="Change Name">
       <Formik
-        onSubmit={(value) => handleSubmit(value.price)}
-        initialValues={INTIAL_VALUES}
-        validationSchema={ProductPriceSchema}
+        onSubmit={(value) => handleSubmit(value.name)}
+        initialValues={{ name }}
+        validationSchema={ProductNameSchema}
       >
         {({ dirty: isDirty, isValid, errors }) => (
           <Form>
             <div className={styles.formContainer}>
               <Field
-                type="number"
-                name={'price'}
-                placeholder="Price"
+                type="text"
+                name="name"
+                placeholder="Name"
                 component={InputField}
-                heading="Price"
-                min={0}
-                errors={errors.price}
+                heading="Name"
+                errors={errors.name}
               />
 
               <div className={styles.buttonContainer}>
@@ -65,7 +64,7 @@ const AddPrice = ({ isShow, setIsShow }: AddPriceProps): JSX.Element => {
                   Close
                 </Button>
                 <Button variant="outline-success" type="submit" disabled={!isDirty || !isValid}>
-                  Add Price
+                  Update Name
                 </Button>
               </div>
             </div>
@@ -76,4 +75,4 @@ const AddPrice = ({ isShow, setIsShow }: AddPriceProps): JSX.Element => {
   );
 };
 
-export default AddPrice;
+export default ChangeProductName;

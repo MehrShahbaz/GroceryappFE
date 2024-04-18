@@ -62,7 +62,16 @@ const AddCategories = ({ isShow, setIsShow, categories = [] }: AddCategoriesProp
     <Modal isShow={isShow} onHide={onHide} heading="Add Categories">
       <div className={styles.container}>
         <div>
-          <h5>Food Marts</h5>
+          <div className={styles.headingContainer}>
+            <h5>Categories</h5>
+            <Button
+              variant="outline-danger"
+              onClick={() => setSelectedCategories([])}
+              disabled={selectedCategories.length === 0}
+            >
+              Remove All Selected
+            </Button>
+          </div>
           {formatedCategories.map((data) => (
             <Row key={data[0].id}>
               {data.map((foodMart) => (

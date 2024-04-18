@@ -1,0 +1,24 @@
+.container {
+  .headingContainer {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 1rem;
+  }
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+  gap: 20px;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .selectContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+}
