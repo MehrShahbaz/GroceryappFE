@@ -4,31 +4,41 @@ import { useDispatch } from 'react-redux';
 import { useParams } from 'react-router-dom';
 import { Field, Form, Formik } from 'formik';
 import { AppDispatch } from 'redux/store/store';
-import { ProductPriceSchema } from 'schema/storeSchema';
+import { ProductReviewSchema } from 'schema/storeSchema';
 
 import InputField from 'components/_shared/InputField/InputField';
 import Modal from 'components/_shared/Modal/Modal';
 
 import { updateProduct } from '../../../../../redux/slices/productSlice';
 
-import styles from './AddPrice.module.scss';
+import styles from './AddReview.module.scss';
 
-type AddPriceProps = {
+type AddReviewProps = {
   isShow: boolean;
   setIsShow: (flag: boolean) => void;
 };
 
-const INTIAL_VALUES = { price: 0 };
-const AddPrice = ({ isShow, setIsShow }: AddPriceProps): JSX.Element => {
+const INTIAL_VALUES: FormValuesType = {
+  content: '',
+  rating: 0,
+  title: '',
+};
+
+type FormValuesType = {
+  content: string;
+  rating: number;
+  title: string;
+};
+const AddReview = ({ isShow, setIsShow }: AddReviewProps): JSX.Element => {
   const dispatch = useDispatch<AppDispatch>();
   const { productId } = useParams<{ productId: string }>();
   const handleSubmit = useCallback(
-    (value: number) => {
+    (value: FormValuesType) => {
       if (productId) {
         const data = {
-          params: { prices_attributes: [{ amount: value }] },
+          params: { reviews_attributes: [value] },
           id: productId,
-          successMessage: 'Price Added successfully',
+          successMessage: 'Review Added successfully',
         };
 
         dispatch(updateProduct(data))
@@ -38,36 +48,50 @@ const AddPrice = ({ isShow, setIsShow }: AddPriceProps): JSX.Element => {
     },
     [productId, dispatch, setIsShow]
   );
-
-  console.log(productId);
   const onHide = (): void => setIsShow(false);
 
   return (
-    <Modal isShow={isShow} onHide={onHide} heading="Add Price">
+    <Modal isShow={isShow} onHide={onHide} heading="Add Review">
       <Formik
-        onSubmit={(value) => handleSubmit(value.price)}
+        onSubmit={(value) => handleSubmit(value)}
         initialValues={INTIAL_VALUES}
-        validationSchema={ProductPriceSchema}
+        validationSchema={ProductReviewSchema}
       >
         {({ dirty: isDirty, isValid, errors }) => (
           <Form>
             <div className={styles.formContainer}>
               <Field
-                type="number"
-                name={'price'}
-                placeholder="Price"
+                type="text"
+                name="title"
+                placeholder="Title"
                 component={InputField}
-                heading="Price"
-                min={0}
-                errors={errors.price}
+                heading="Title"
+                errors={errors.title}
               />
-
+              <Field
+                type="number"
+                name="rating"
+                placeholder="Rating"
+                component={InputField}
+                heading="Rating"
+                min={0}
+                max={5}
+                errors={errors.rating}
+              />
+              <Field
+                type="text"
+                name="content"
+                placeholder="Description"
+                component={InputField}
+                heading="Description"
+                errors={errors.content}
+              />
               <div className={styles.buttonContainer}>
                 <Button variant="outline-danger" onClick={onHide}>
                   Close
                 </Button>
                 <Button variant="outline-success" type="submit" disabled={!isDirty || !isValid}>
-                  Add Price
+                  Add Review
                 </Button>
               </div>
             </div>
@@ -78,4 +102,4 @@ const AddPrice = ({ isShow, setIsShow }: AddPriceProps): JSX.Element => {
   );
 };
 
-export default AddPrice;
+export default AddReview;

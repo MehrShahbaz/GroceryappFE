@@ -32,8 +32,8 @@ const ProductDetails = (): JSX.Element => {
       <h1>{name}</h1>
       <ProductManufacturer manufacturer={manufacturer} />
       <ProductFoodMart foodMart={foodMart} />
-      <ProductPrices prices={prices} />
       <ProductCategories categories={categories} />
+      <ProductPrices prices={prices} />
       <ProductReviews reviews={reviews} />
     </div>
   );

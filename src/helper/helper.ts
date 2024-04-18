@@ -5,6 +5,8 @@ import { FoodMart } from 'types/foodMartTypes';
 import { CategoryType } from '../types/categoryTypes';
 import { PriceType, ReviewType } from '../types/productTypes';
 
+export const EUR_SYMBOL = '€';
+
 type ErrorType = {
   error: string;
   exception: string;
@@ -27,10 +29,10 @@ export const calculateAveragePrice = (data: PriceType[]): string => {
     const sum = data.reduce((accumulator, { amount }) => accumulator + amount, 0);
     const average = sum / data.length;
 
-    return average.toFixed(2);
+    return `${EUR_SYMBOL}${average.toFixed(2)}`;
   }
 
-  return '0';
+  return `${EUR_SYMBOL}0`;
 };
 
 export type SelectType = {

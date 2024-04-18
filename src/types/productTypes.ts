@@ -16,7 +16,7 @@ export type CategoryType = {
 };
 
 export type ReviewType = {
-  id: number;
+  id?: number;
   content: string | undefined;
   rating: number;
   title: string | undefined;
@@ -29,6 +29,8 @@ export type PriceType = {
 
 export type ProductParams = {
   prices_attributes?: PriceType[];
+  reviews_attributes?: ReviewType[];
+  category_ids?: number[];
 };
 
 export type ProductState = {

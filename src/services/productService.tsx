@@ -13,7 +13,7 @@ export const createProductService = (params: FoodMartParams): AxiosPromise =>
   baseService.post(productURLS.createProduct, { product: params });
 
 export const updateProductService = (params: ProductParams, id: number | string): AxiosPromise =>
-  baseService.put(productURLS.updateProduct(id), params);
+  baseService.put(productURLS.updateProduct(id), { product: params });
 
 export const deleteProductService = (id: number): AxiosPromise => baseService.delete(productURLS.updateProduct(id));
 

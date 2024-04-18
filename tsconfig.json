@@ -21,7 +21,7 @@
     "jsx": "react-jsx",
     "baseUrl": "./src", // Set the base URL for module resolution
     "paths": {
-      "*": ["*", "src/*", "src/components/*"] // Define paths for all modules
+      "*": ["*", "src/*", "src/components/*", "src/redux/*"] // Define paths for all modules
     }
   },
   "include": [

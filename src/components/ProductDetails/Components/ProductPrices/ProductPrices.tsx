@@ -29,9 +29,9 @@ const ProductPrices = ({ prices }: ProductPricesProps): JSX.Element => {
       {
         label: 'Sales of the week',
         data: priceArray,
-        backgroundColor: 'aqua',
+        backgroundColor: 'black',
         borderColor: 'black',
-        pointBorderColor: 'aqua',
+        pointBorderColor: 'black',
       },
     ],
   };

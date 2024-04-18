@@ -135,7 +135,7 @@ export const createProduct = createAsyncThunk('Product/createProduct', async (pa
   }
 });
 
-type UpdateProductType = {
+export type UpdateProductType = {
   params: ProductParams;
   id: number | string;
   successMessage?: string;
