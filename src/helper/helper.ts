@@ -3,7 +3,9 @@ import { Store } from 'react-notifications-component';
 import { FoodMart } from 'types/foodMartTypes';
 
 import { CategoryType } from '../types/categoryTypes';
-import { Review } from '../types/productTypes';
+import { PriceType, ReviewType } from '../types/productTypes';
+
+export const EUR_SYMBOL = '€';
 
 type ErrorType = {
   error: string;
@@ -11,7 +13,7 @@ type ErrorType = {
   status: number;
 };
 
-export const calculateReview = (data: Review[]): number => {
+export const calculateReview = (data: ReviewType[]): number => {
   if (data.length) {
     const sum = data.reduce((accumulator, { rating }) => accumulator + rating, 0);
     const average = sum / data.length;
@@ -20,6 +22,17 @@ export const calculateReview = (data: Review[]): number => {
   }
 
   return 0;
+};
+
+export const calculateAveragePrice = (data: PriceType[]): string => {
+  if (data.length) {
+    const sum = data.reduce((accumulator, { amount }) => accumulator + amount, 0);
+    const average = sum / data.length;
+
+    return `${EUR_SYMBOL}${average.toFixed(2)}`;
+  }
+
+  return `${EUR_SYMBOL}0`;
 };
 
 export type SelectType = {

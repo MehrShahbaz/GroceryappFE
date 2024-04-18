@@ -1,8 +1,10 @@
 import { useMemo } from 'react';
 import { Table } from 'react-bootstrap';
 import { useSelector } from 'react-redux';
+import { Link } from 'react-router-dom';
 
 import StarRating from 'components/_shared/ReviewStars/ReviewStars';
+import { urls } from 'routes/urls';
 
 // import { ReactComponent as DeleteIcon } from '../../../assets/deleteIcon.svg';
 // import { ReactComponent as EditIcon } from '../../../assets/editIcon.svg';
@@ -42,7 +44,9 @@ const ProductTable = ({ perPage, currentPage }: ProductTableProps): JSX.Element 
             return (
               <tr key={`${id} + ${name}`}>
                 <td>{index + offset + 1}</td>
-                <td>{name}</td>
+                <td>
+                  <Link to={`${urls.products}/${id}`}>{name}</Link>
+                </td>
                 <td>€{prices[0].amount}</td>
                 <td>
                   <a href={foodMart.location} target="_blank" rel="noreferrer">

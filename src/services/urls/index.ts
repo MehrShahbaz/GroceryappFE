@@ -23,5 +23,5 @@ export const productURLS = {
       categories ?? []
     }&food_marts_ids=${foodMarts ?? ''}`,
   createProduct: '/products',
-  updateProduct: (id: number) => `/products/${id}`,
+  updateProduct: (id: number | string) => `/products/${id}`,
 };

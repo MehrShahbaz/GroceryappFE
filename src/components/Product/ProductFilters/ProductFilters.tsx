@@ -51,8 +51,6 @@ const ProductFilters = ({
     setSelectedFoodMart(data);
   };
 
-  console.log(formatedFoodMarts);
-
   return (
     <Modal isShow={isShow} onHide={onHide} heading="Filters">
       <div className={styles.switchContainer}>

@@ -1,0 +1,40 @@
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  padding: 10px 0;
+  gap: 20px;
+}
+.formContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+
+  .selectContainer {
+    display: flex;
+    justify-content: space-between;
+  }
+}
+
+.switchContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 30px;
+}
+
+.checkboxContainer {
+  display: flex;
+  gap: 15px;
+  flex: 1;
+}
+
+.buttonContainer {
+  display: flex;
+  justify-content: flex-end;
+  gap: 1rem;
+}
+
+.headingContainer {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 1rem;
+}

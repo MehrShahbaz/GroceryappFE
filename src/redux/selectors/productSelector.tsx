@@ -10,3 +10,5 @@ export const selectAllProducts = createSelector(selectProductState, (productStat
 export const isProductsLoading = createSelector(selectProductState, (productState) => productState.loading);
 
 export const productCount = createSelector(selectProductState, (productState) => productState.totalCount);
+
+export const selectedProduct = createSelector(selectProductState, (productState) => productState.currentProduct);
